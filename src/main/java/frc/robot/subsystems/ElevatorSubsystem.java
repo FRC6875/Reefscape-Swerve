@@ -42,6 +42,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void resetEncoder(){
     elevatorMotor.getEncoder().setPosition(0);
   }
+  public void Stop(){
+    elevatorMotor.stopMotor();
+  }
 
   public void move(int speed) {
 elevatorMotor.set(speed);
