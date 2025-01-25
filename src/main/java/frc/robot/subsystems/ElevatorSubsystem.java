@@ -11,6 +11,9 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+
+import java.lang.reflect.Type;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
@@ -20,7 +23,7 @@ import com.revrobotics.spark.config.SparkBaseConfig;
 public class ElevatorSubsystem extends SubsystemBase {
   SparkMax elevatorMotor = new SparkMax(ElevatorConstants.kElevatorPort, MotorType.kBrushless);
   SparkMaxConfig config = new SparkMaxConfig();
-  //RelativeEncoder elevatorEncoder = elevatorMotor.getEncoder(Type.kHallSensor, 42);
+  RelativeEncoder elevatorEncoder = elevatorMotor.getEncoder(); //42
   
 
 
@@ -38,11 +41,20 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   }
 
+  // should convert inputted inches to encoder ticks for you
+  public void setEncoder(double distance) {
+    elevatorMotor.getEncoder().setPosition(distance);
+  }
 
   public void resetEncoder(){
     elevatorMotor.getEncoder().setPosition(0);
   }
-  public void Stop(){
+
+  public double getEncoderValue(){
+    return elevatorMotor.getEncoder().getPosition();
+  }
+
+  public void stop(){
     elevatorMotor.stopMotor();
   }
 
