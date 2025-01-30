@@ -13,7 +13,7 @@ public class AutoElevatorCommand extends Command {
   ElevatorSubsystem m_elevatorSubsystem;
   double m_dist;
 
-  public AutoElevatorCommand(ElevatorSubsystem elevatorSubsystem, double dist) {
+  public AutoElevatorCommand(ElevatorSubsystem elevatorSubsystem, double dist, String direction) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_elevatorSubsystem = elevatorSubsystem;
     m_dist = dist;
