@@ -61,8 +61,10 @@ public class RobotContainer {
             point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))
         ));
 
-        driverJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0));
-    
+        operatorJoystick.x().onTrue(new ElevatorPositionCommand(m_elevatorSubsystem, 16.0));
+        operatorJoystick.a().onTrue(new ElevatorPositionCommand(m_elevatorSubsystem, 16.0));
+        operatorJoystick.b().onTrue(new ElevatorPositionCommand(m_elevatorSubsystem, 16.0));
+
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.

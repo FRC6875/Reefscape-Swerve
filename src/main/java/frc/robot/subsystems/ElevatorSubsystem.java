@@ -2,6 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+//gracescommet
+
+// Natalie's test comment
 package frc.robot.subsystems;
 
 import frc.robot.generated.MechanismConstants;
@@ -41,6 +44,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   }
 
+
   public void resetEncoder(){
     elevatorMotor.getEncoder().setPosition(0);
   }
@@ -53,15 +57,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorMotor.stopMotor();
   }
 
-  public void setSpeed(int speed, String direction) {
-
-    if (direction.equals("up")){
-      elevatorMotor.set(speed);
-    } else if (direction.equals("down")) {
-      elevatorMotor.set(speed*-1);
-    }
-
+  public void move(int speed) {
+  elevatorMotor.set(speed);
   }
+
 
 
 
