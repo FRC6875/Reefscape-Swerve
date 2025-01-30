@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.commands.ElevatorPositionCommand;
+import frc.robot.commands.AutoElevatorCommand;
 
 public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -61,7 +61,7 @@ public class RobotContainer {
             point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))
         ));
 
-        driverJoystick.x().onTrue(new ElevatorPositionCommand(m_elevatorSubsystem, 16.0));
+        driverJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0));
     
 
         // Run SysId routines when holding back/start and X/Y.

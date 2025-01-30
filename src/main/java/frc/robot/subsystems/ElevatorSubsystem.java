@@ -41,11 +41,6 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   }
 
-  // should convert inputted inches to encoder ticks for you
-  public void setEncoder(double distance) {
-    elevatorMotor.getEncoder().setPosition(distance);
-  }
-
   public void resetEncoder(){
     elevatorMotor.getEncoder().setPosition(0);
   }
@@ -58,10 +53,15 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorMotor.stopMotor();
   }
 
-  public void move(int speed) {
-elevatorMotor.set(speed);
-  }
+  public void setSpeed(int speed, String direction) {
 
+    if (direction.equals("up")){
+      elevatorMotor.set(speed);
+    } else if (direction.equals("down")) {
+      elevatorMotor.set(speed*-1);
+    }
+
+  }
 
 
 

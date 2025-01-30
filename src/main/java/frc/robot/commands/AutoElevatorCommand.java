@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ElevatorPositionCommand extends Command {
+public class AutoElevatorCommand extends Command {
   /** Creates a new ElevatorPositionCommand. */
   ElevatorSubsystem m_elevatorSubsystem;
   double m_dist;
 
-  public ElevatorPositionCommand(ElevatorSubsystem elevatorSubsystem, double dist) {
+  public AutoElevatorCommand(ElevatorSubsystem elevatorSubsystem, double dist) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_elevatorSubsystem = elevatorSubsystem;
     m_dist = dist;
@@ -22,12 +22,14 @@ public class ElevatorPositionCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_elevatorSubsystem.setEncoder(m_dist);
+  //reset encoders
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    //run motor in specified direction
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -38,10 +40,12 @@ public class ElevatorPositionCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+
+    //check if encoder value is greater than or equal to distance inputted
     
     // 2 is the tolerance
-    if(Math.abs(m_elevatorSubsystem.getEncoderValue() - m_dist) < 2) return true;
-    else return false;
-
+   // if(Math.abs(m_elevatorSubsystem.getEncoderValue() - m_dist) < 2) return true;
+   // else return false;
+    return true;
   }
 }
