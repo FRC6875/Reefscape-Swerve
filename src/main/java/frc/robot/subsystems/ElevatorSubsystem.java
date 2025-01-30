@@ -57,8 +57,14 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorMotor.stopMotor();
   }
 
-  public void move(int speed) {
-  elevatorMotor.set(speed);
+  public void setSpeed(int speed, String direction) {
+
+    if (direction.equals("up")) {
+      elevatorMotor.set(speed);
+    } 
+    else if (direction.equals("down")) {
+    elevatorMotor.set(speed*-1);
+    }
   }
 
 
