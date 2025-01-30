@@ -62,7 +62,9 @@ public class RobotContainer {
         ));
 
         operatorJoystick.x().onTrue(new ElevatorPositionCommand(m_elevatorSubsystem, 16.0));
-    
+        operatorJoystick.a().onTrue(new ElevatorPositionCommand(m_elevatorSubsystem, 16.0));
+        operatorJoystick.b().onTrue(new ElevatorPositionCommand(m_elevatorSubsystem, 16.0));
+
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.

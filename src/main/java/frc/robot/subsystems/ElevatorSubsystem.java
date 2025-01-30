@@ -4,7 +4,6 @@
 
 //gracescommet
 
-=======
 // Natalie's test comment
 package frc.robot.subsystems;
 
@@ -45,10 +44,6 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   }
 
-  // should convert inputted inches to encoder ticks for you
-  public void setEncoder(double distance) {
-    elevatorMotor.getEncoder().setPosition(distance);
-  }
 
   public void resetEncoder(){
     elevatorMotor.getEncoder().setPosition(0);
