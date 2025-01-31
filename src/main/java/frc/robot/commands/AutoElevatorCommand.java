@@ -12,23 +12,29 @@ public class AutoElevatorCommand extends Command {
   /** Creates a new ElevatorPositionCommand. */
   ElevatorSubsystem m_elevatorSubsystem;
   double m_dist;
+  String m_direction;
 
   public AutoElevatorCommand(ElevatorSubsystem elevatorSubsystem, double dist, String direction) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_elevatorSubsystem = elevatorSubsystem;
     m_dist = dist;
+    m_direction = direction;
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_elevatorSubsystem.resetEncoder();
   //reset encoders
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_elevatorSubsystem.setSpeed(0.5, m_direction);
     //run motor in specified direction
+  
   }
 
   // Called once the command ends or is interrupted.
@@ -43,9 +49,13 @@ public class AutoElevatorCommand extends Command {
 
     //check if encoder value is greater than or equal to distance inputted
     
+    //without tolerance
+    if(m_elevatorSubsystem.getEncoderValue()>=m_dist)return true;
+    else return false;
+
     // 2 is the tolerance
-   // if(Math.abs(m_elevatorSubsystem.getEncoderValue() - m_dist) < 2) return true;
+   // if(Math.abs(m_elevatorSubsystem.getEncoderValue() - m_dist) < 0.5) return true;
    // else return false;
-    return true;
+ 
   }
 }
