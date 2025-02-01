@@ -19,6 +19,11 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.commands.AutoElevatorCommand;
+import frc.robot.commands.Seq_ElevatorAuto;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+
 
 public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -33,15 +38,23 @@ public class RobotContainer {
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
+    SendableChooser<Command> m_Chooser = new SendableChooser<>();
+
     private final CommandXboxController driverJoystick = new CommandXboxController(0);
     private final CommandXboxController operatorJoystick = new CommandXboxController(1);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
     public final ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
+    public final Seq_ElevatorAuto m_Seq_ElevatorAuto = new Seq_ElevatorAuto(m_elevatorSubsystem);
+
 
     public RobotContainer() {
         configureBindings();
+
+        m_Chooser.addOption("Elevator Test Auto", m_Seq_ElevatorAuto);
+        SmartDashboard.putData("Auto Chooser",m_Chooser);
+
     }
 
     private void configureBindings() {
