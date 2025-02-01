@@ -38,7 +38,7 @@ public class RobotContainer {
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
-    SendableChooser<Command> m_Chooser = new SendableChooser<>();
+    SendableChooser<Command> m_chooser = new SendableChooser<>();
 
     private final CommandXboxController driverJoystick = new CommandXboxController(0);
     private final CommandXboxController operatorJoystick = new CommandXboxController(1);
@@ -52,8 +52,8 @@ public class RobotContainer {
     public RobotContainer() {
         configureBindings();
 
-        m_Chooser.addOption("Elevator Test Auto", m_Seq_ElevatorAuto);
-        SmartDashboard.putData("Auto Chooser",m_Chooser);
+        m_chooser.addOption("Elevator Test Auto", m_Seq_ElevatorAuto);
+        SmartDashboard.putData("Auto Chooser",m_chooser);
 
     }
 
@@ -93,6 +93,6 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        return Commands.print("No autonomous command configured");
+        return m_chooser.getSelected();
     }
 }
