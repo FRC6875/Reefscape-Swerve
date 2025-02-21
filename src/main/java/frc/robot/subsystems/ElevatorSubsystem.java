@@ -48,7 +48,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void resetEncoder(){
     elevatorMotor.getEncoder().setPosition(0);
   }
-
+  
   public double getEncoderValue(){
     return elevatorMotor.getEncoder().getPosition();
   }
@@ -65,6 +65,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     else if (direction.equals("down")) {
     elevatorMotor.set(speed*-1);
     }
+//  public void moveToPosition(variable for distance if possible ){
+//  run motor at desired speed
+//  if encoder get position is at whatever coral level
+//    stop motor
+// }
   }
 
 
