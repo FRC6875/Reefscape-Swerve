@@ -50,9 +50,17 @@ public class AutoElevatorCommand extends Command {
     //check if encoder value is greater than or equal to distance inputted
     
     //without tolerance
+    if(m_direction.equals("up")){
     if(m_elevatorSubsystem.getEncoderValue()>=m_dist)return true;
     else return false;
-
+    }
+    else if(m_direction.equals("down")){
+      if(m_elevatorSubsystem.getEncoderValue()<=m_dist)return true;
+    else return false;
+    }
+    else{
+      return true;
+    }
     // 2 is the tolerance
    // if(Math.abs(m_elevatorSubsystem.getEncoderValue() - m_dist) < 0.5) return true;
    // else return false;
