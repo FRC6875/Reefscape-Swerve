@@ -25,7 +25,7 @@ public class AutoElevatorCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-   // m_elevatorSubsystem.resetEncoder();
+    m_elevatorSubsystem.resetEncoder();
   //reset encoders
   }
 
