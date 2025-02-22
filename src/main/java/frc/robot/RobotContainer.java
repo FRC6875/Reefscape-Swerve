@@ -91,7 +91,7 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        driverJoystick.a().whileTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "up"));
+        driverJoystick.a().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16, "up"));
        
     }
 
