@@ -92,7 +92,7 @@ public class RobotContainer {
         drivetrain.registerTelemetry(logger::telemeterize);
 
         driverJoystick.a().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "up"));
-        driverJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "down"));
+        driverJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, -16.0, "down"));
     }
 
     public Command getAutonomousCommand() {
