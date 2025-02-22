@@ -7,21 +7,14 @@
 // Natalie's test comment
 package frc.robot.subsystems;
 
-import frc.robot.generated.MechanismConstants;
-import frc.robot.generated.MechanismConstants.ElevatorConstants;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
-
-import java.lang.reflect.Type;
-
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
-import com.revrobotics.spark.config.SparkBaseConfig;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.generated.MechanismConstants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase {
   SparkMax elevatorMotor = new SparkMax(ElevatorConstants.kElevatorPort, MotorType.kBrushless);
@@ -71,6 +64,19 @@ public class ElevatorSubsystem extends SubsystemBase {
 //    stop motor
 // }
   }
+
+ /* public void moveToPosition(double distance,String direction){
+    elevatorMotor.set(0.5);
+    if(elevatorEncoder.getPosition() >= distance){
+      elevatorMotor.stopMotor();
+    }
+    
+
+  } */
+//  run motor at desired speed
+//  if encoder get position is at whatever coral level
+//    stop motor
+// }
 
 
 
