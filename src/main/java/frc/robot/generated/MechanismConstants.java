@@ -9,4 +9,8 @@ public class MechanismConstants {
 
     }
 
+    public static class VisionConstants{
+        public static final String LIMELIGHT_NAME = "";
+   }
+
 }

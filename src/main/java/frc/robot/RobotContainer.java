@@ -10,6 +10,7 @@ import static edu.wpi.first.units.Units.RotationsPerSecond;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -39,6 +40,7 @@ public class RobotContainer {
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     SendableChooser<Command> m_chooser = new SendableChooser<>();
+    
 
     private final CommandXboxController driverJoystick = new CommandXboxController(0);
     private final CommandXboxController operatorJoystick = new CommandXboxController(1);
@@ -53,6 +55,8 @@ public class RobotContainer {
         configureBindings();
 
         m_chooser.addOption("Elevator Test Auto", m_Seq_ElevatorAuto);
+        m_chooser.addOption( "Testing Simple", new PathPlannerAuto("testing simple"));
+        m_chooser.addOption( "Testing Complicated", new PathPlannerAuto("testing complicated"));
         SmartDashboard.putData("Auto Chooser",m_chooser);
 
     }
