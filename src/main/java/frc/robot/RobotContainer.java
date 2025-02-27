@@ -54,11 +54,7 @@ public class RobotContainer {
     public RobotContainer() {
         configureBindings();
 
-        m_chooser.addOption("Elevator Test Auto", m_Seq_ElevatorAuto);
-        m_chooser.addOption( "Testing Simple", new PathPlannerAuto("testing simple"));
-        m_chooser.addOption( "Testing Complicated", new PathPlannerAuto("testing complicated"));
-        SmartDashboard.putData("Auto Chooser",m_chooser);
-
+       
     }
 
     private void configureBindings() {
@@ -97,6 +93,13 @@ public class RobotContainer {
 
         driverJoystick.a().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "up"));
         driverJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, -16.0, "down"));
+
+        m_chooser.addOption("Elevator Test Auto", m_Seq_ElevatorAuto);
+        m_chooser.addOption( "Testing Simple", new PathPlannerAuto("testing simple"));
+        m_chooser.addOption( "Testing Complicated", new PathPlannerAuto("testing complicated"));
+        m_chooser.addOption( "Nothing", new PathPlannerAuto("Nothing"));
+        SmartDashboard.putData("Auto Chooser",m_chooser);
+
     }
 
     public Command getAutonomousCommand() {

@@ -5,15 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "testing simple"
+            "waitTime": 5.0
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "Seq_ElevatorAuto"
+            "pathName": "testing simple"
           }
         }
       ]
