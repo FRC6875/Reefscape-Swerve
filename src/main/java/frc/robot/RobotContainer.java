@@ -46,6 +46,15 @@ public class RobotContainer {
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
     
+
+                                                      
+
+SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(driverJoystick::getRightX,
+                                                                                           driverJoystick::getRightY)
+                                                                                           . headingWhile(true);
+
+Command driveFieldOrientatedDirectAngle = drivebase.driveFieldOrientated(driveDirectAngle);
+Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientated(driveAngularVelocity);
     /* Setting up bindings for necessary control of the swerve drive platform */
 
     SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -59,12 +68,16 @@ public class RobotContainer {
     public RobotContainer() {
         configureBindings();
 
+        drivebase.setDefaultCommand(driveFieldOrientatedDirectAngle);
+
         m_chooser.addOption("Elevator Test Auto", m_Seq_ElevatorAuto);
         m_chooser.addOption( "Testing Simple", new PathPlannerAuto("testing simple"));
         m_chooser.addOption( "Testing Complicated", new PathPlannerAuto("testing complicated"));
         SmartDashboard.putData("Auto Chooser",m_chooser);
 
     }
+
+    
 
     private void configureBindings() {
         // Note that X is defined as forward according to WPILib convention,
