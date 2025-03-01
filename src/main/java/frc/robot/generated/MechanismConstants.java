@@ -13,4 +13,9 @@ public class MechanismConstants {
         public static final String LIMELIGHT_NAME = "";
    }
 
+   public static class ClimbConstants{
+    public static final int kClimbPort = 15;
+    public static final int kClimbEncoderConvFact = (int) (Math.PI*6/8.45);
+   }
+
 }

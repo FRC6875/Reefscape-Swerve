@@ -23,8 +23,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AutoElevatorCommand;
+import frc.robot.commands.Climb;
 import frc.robot.commands.Seq_ElevatorAuto;
 import frc.robot.commands.TeleopElevator;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveInputStream;
@@ -64,6 +66,7 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
 
     public final ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
     public final Seq_ElevatorAuto m_Seq_ElevatorAuto = new Seq_ElevatorAuto(m_elevatorSubsystem);
+    public final ClimbSubsystem m_climbSubsystem=new ClimbSubsystem();
 
 
     public RobotContainer() {
@@ -93,6 +96,8 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
         // Note that each routine should be run exactly once in a single log.
         driverJoystick.a().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "up"));
         driverJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, -16.0, "down"));
+        driverJoystick.rightBumper().whileTrue(new Climb(m_climbSubsystem, true,0.3));
+        driverJoystick.leftBumper().whileTrue(new Climb(m_climbSubsystem, false,0.3));
         m_elevatorSubsystem.setDefaultCommand(new TeleopElevator(m_elevatorSubsystem, () -> operatorJoystick.getRightTriggerAxis(), ()->operatorJoystick.getLeftTriggerAxis()));
     }
 
