@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-//imports
-
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
@@ -97,7 +95,7 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
         driverJoystick.a().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "up"));
-        driverJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, -16.0, "down"));
+        driverJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, -16.0, "down"));//This need to be changed
         driverJoystick.rightBumper().whileTrue(new Climb(m_climbSubsystem, true,0.3));
         driverJoystick.leftBumper().whileTrue(new Climb(m_climbSubsystem, false,0.3));
         m_elevatorSubsystem.setDefaultCommand(new TeleopElevator(m_elevatorSubsystem, () -> operatorJoystick.getRightTriggerAxis(), ()->operatorJoystick.getLeftTriggerAxis()));
