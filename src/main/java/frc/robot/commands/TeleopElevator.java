@@ -4,35 +4,37 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AutoElevatorCommand extends Command {
-  /** Creates a new ElevatorPositionCommand. */
-  ElevatorSubsystem m_elevatorSubsystem;
-  double m_dist;
+public class TeleopElevator extends Command {
+ ElevatorSubsystem m_elevatorSubsystem;
+  double speed;
   String m_direction;
+  DoubleSupplier up,down;
 
-  public AutoElevatorCommand(ElevatorSubsystem elevatorSubsystem, double dist, String direction) {
+  public TeleopElevator(ElevatorSubsystem elevatorSubsystem, DoubleSupplier up,DoubleSupplier down) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_elevatorSubsystem = elevatorSubsystem;
-    m_dist = dist;
-    m_direction = direction;
-
+    this.up=up;
+    this.down=down;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_elevatorSubsystem.resetEncoder();
   //reset encoders
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_elevatorSubsystem.setSpeed(0.1);
+    speed=up.getAsDouble()-down.getAsDouble();
+
+    m_elevatorSubsystem.setSpeed(speed);
     //run motor in specified direction
   
   }
@@ -50,20 +52,9 @@ public class AutoElevatorCommand extends Command {
     //check if encoder value is greater than or equal to distance inputted
     
     //without tolerance
-    if(m_direction.equals("up")){
-    if(m_elevatorSubsystem.getEncoderValue()>=m_dist)return true;
-    else return false;
-    }
-    else if(m_direction.equals("down")){
-      if(m_elevatorSubsystem.getEncoderValue()<=m_dist)return true;
-    else return false;
-    }
-    else{
-      return true;
-    }
+   return false;
     // 2 is the tolerance
-   // if(Math.abs(m_elevatorSubsystem.getEncoderValue() - m_dist) < 0.5) return true;
-   // else return false;
- 
-  }
+//    if(Math.abs(m_elevatorSubsystem.getEncoderValue() - m_dist) < 0.5) return true;
+//    else return false;
+ }
 }

@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AutoElevatorCommand;
 import frc.robot.commands.Seq_ElevatorAuto;
+import frc.robot.commands.TeleopElevator;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveInputStream;
@@ -71,8 +72,8 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
         drivebase.setDefaultCommand(driveFieldOrientatedDirectAngle);
 
         m_chooser.addOption("Elevator Test Auto", m_Seq_ElevatorAuto);
-        m_chooser.addOption( "Testing Simple", new PathPlannerAuto("testing simple"));
-        m_chooser.addOption( "Testing Complicated", new PathPlannerAuto("testing complicated"));
+        // m_chooser.addOption( "Testing Simple", new PathPlannerAuto("testing simple"));
+        // m_chooser.addOption( "Testing Complicated", new PathPlannerAuto("testing complicated"));
         SmartDashboard.putData("Auto Chooser",m_chooser);
 
     }
@@ -92,6 +93,7 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
         // Note that each routine should be run exactly once in a single log.
         driverJoystick.a().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "up"));
         driverJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, -16.0, "down"));
+        m_elevatorSubsystem.setDefaultCommand(new TeleopElevator(m_elevatorSubsystem, () -> operatorJoystick.getRightTriggerAxis(), ()->operatorJoystick.getLeftTriggerAxis()));
     }
 
     public Command getAutonomousCommand() {
