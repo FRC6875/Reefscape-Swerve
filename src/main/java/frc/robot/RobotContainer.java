@@ -64,9 +64,9 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
     
 
 
-    public final ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
+    public final static ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
     public final Seq_ElevatorAuto m_Seq_ElevatorAuto = new Seq_ElevatorAuto(m_elevatorSubsystem);
-    public final ClimbSubsystem m_climbSubsystem=new ClimbSubsystem();
+    public final static ClimbSubsystem m_climbSubsystem=new ClimbSubsystem();
 
 
     public RobotContainer() {

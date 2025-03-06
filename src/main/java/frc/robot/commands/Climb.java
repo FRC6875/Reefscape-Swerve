@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ClimbSubsystem;
 
 
@@ -21,6 +22,8 @@ public class Climb extends Command {
     m_climbSubsystem = climbSubsystem;
     this.m_upward = upward;
     this.speed=speed;
+      addRequirements(RobotContainer.m_climbSubsystem);
+
   }
 
   // Called when the command is initially scheduled.

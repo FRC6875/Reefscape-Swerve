@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ElevatorSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -20,6 +21,7 @@ public class AutoElevatorCommand extends Command {
     m_dist = dist;
     m_direction = direction;
 
+  addRequirements(RobotContainer.m_elevatorSubsystem);
   }
 
   // Called when the command is initially scheduled.
