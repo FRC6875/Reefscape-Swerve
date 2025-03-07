@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AutoElevatorCommand;
 import frc.robot.commands.Climb;
+import frc.robot.commands.PositionTeleopElevator;
 import frc.robot.commands.Seq_ElevatorAuto;
 import frc.robot.commands.TeleopElevator;
 import frc.robot.subsystems.ClimbSubsystem;
@@ -94,11 +95,14 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
-        driverJoystick.a().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "up"));
-        driverJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, -16.0, "down"));
-        driverJoystick.rightBumper().whileTrue(new Climb(m_climbSubsystem, true,0.3));
-        driverJoystick.leftBumper().whileTrue(new Climb(m_climbSubsystem, false,0.3));
+        //driverJoystick.a().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "up"));
+        //driverJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, -16.0, "down"));
+        operatorJoystick.rightBumper().whileTrue(new Climb(m_climbSubsystem, true,0.3));
+        operatorJoystick.leftBumper().whileTrue(new Climb(m_climbSubsystem, false,0.3));
         m_elevatorSubsystem.setDefaultCommand(new TeleopElevator(m_elevatorSubsystem, () -> operatorJoystick.getRightTriggerAxis(), ()->operatorJoystick.getLeftTriggerAxis()));
+        operatorJoystick.a().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, 2, null));
+        operatorJoystick.a().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, 3, null));
+        operatorJoystick.a().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, 1, null));
     }
 
     public Command getAutonomousCommand() {
