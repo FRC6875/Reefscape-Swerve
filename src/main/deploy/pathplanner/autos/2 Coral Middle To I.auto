@@ -1,0 +1,43 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle Cage Going To I"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoElevatorL1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Going From I to Coral Station"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Going From Coral Stations to I"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoElevatorL2"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

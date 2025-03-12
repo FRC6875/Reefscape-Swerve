@@ -58,7 +58,7 @@ elevatorController.setReference(position, SparkBase.ControlType.kPosition);
   public void stop(){
     elevatorMotor.stopMotor();
   }
-
+//Negitive is Up
   public void setSpeed(double speed) {
 
       elevatorMotor.set(speed);

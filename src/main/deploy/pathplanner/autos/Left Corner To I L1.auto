@@ -7,7 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "testing complicate"
+            "pathName": "Left Corner Going To I"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoElevatorL1"
           }
         }
       ]
