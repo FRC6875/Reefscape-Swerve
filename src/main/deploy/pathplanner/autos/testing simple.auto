@@ -9,12 +9,6 @@
           "data": {
             "pathName": "testing simple"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Seq_ElevatorAuto"
-          }
         }
       ]
     }
