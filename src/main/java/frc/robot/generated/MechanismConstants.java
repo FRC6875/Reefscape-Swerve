@@ -19,7 +19,6 @@ public class MechanismConstants {
    public static class ServoConstants{
     public static final int kServoPort = 0;
     public static final int kServoPositionOrignal = 0;
-    public static final int kServoPositionIntake = 45;
     public static final int kServoPositionRelease = 135;
    }
 
