@@ -32,6 +32,7 @@ import frc.robot.generated.MechanismConstants.ServoConstants;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.LaserSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveInputStream;
 
@@ -72,7 +73,7 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
     public final Seq_ElevatorAuto m_Seq_ElevatorAuto = new Seq_ElevatorAuto(m_elevatorSubsystem);
     public final static ClimbSubsystem m_climbSubsystem=new ClimbSubsystem();
     public final static ArmSubsystem m_armSubsystem=new ArmSubsystem();
-
+    public final static LaserSubsystem m_laserSubsystem=new LaserSubsystem();
 
     public RobotContainer() {
         configureBindings();
@@ -104,10 +105,10 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
         operatorJoystick.rightBumper().whileTrue(new Climb(m_climbSubsystem, true,0.3));
         operatorJoystick.leftBumper().whileTrue(new Climb(m_climbSubsystem, false,0.3));
         m_elevatorSubsystem.setDefaultCommand(new TeleopElevator(m_elevatorSubsystem, () -> operatorJoystick.getRightTriggerAxis(), ()->operatorJoystick.getLeftTriggerAxis()));
-        operatorJoystick.a().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, 0, null));
-        operatorJoystick.b().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, -3, null));
-        operatorJoystick.y().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, 1, null));
-        operatorJoystick.x().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, 1, null));
+        operatorJoystick.a().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, 0,0, null));
+        operatorJoystick.b().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, -3,3, null));
+        operatorJoystick.y().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, -1, 1,null));
+        operatorJoystick.x().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, -2,2, null));
     }
 
     public Command getAutonomousCommand() {

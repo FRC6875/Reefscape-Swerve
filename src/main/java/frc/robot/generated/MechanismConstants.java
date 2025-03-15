@@ -23,4 +23,8 @@ public class MechanismConstants {
     public static final int kServoPositionRelease = 135;
    }
 
+   public static class LaserConstants{
+    public static final int kLaserPort = 0;
+}
+
 }

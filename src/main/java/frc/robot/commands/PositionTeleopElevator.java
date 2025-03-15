@@ -6,18 +6,23 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.LaserSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class PositionTeleopElevator extends Command {
   /** Creates a new PositionTeleopElevator. */
   ElevatorSubsystem m_elevatorSubsystem;
+  LaserSubsystem m_laserSubsystem;
   double m_dist;
+  double m_laserDist;
   String m_direction;
   
-  public PositionTeleopElevator(ElevatorSubsystem elevatorSubsystem, double dist, String direction) {
+  public PositionTeleopElevator(ElevatorSubsystem elevatorSubsystem, LaserSubsystem laserSubsystem, double dist, double laserDist, String direction) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_elevatorSubsystem = elevatorSubsystem;
+    m_laserSubsystem = laserSubsystem;
     m_dist = dist;
+    m_laserDist = laserDist;
     m_direction = direction;
 
   }
@@ -42,6 +47,9 @@ public class PositionTeleopElevator extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+
+  if(m_laserSubsystem.getValue()>=m_laserDist)return true;
+    else
     return false;
   }
 }
