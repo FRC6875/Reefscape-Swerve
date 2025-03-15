@@ -19,7 +19,7 @@ public class LaserSubsystem extends SubsystemBase {
   }
 
   public double getValue(){
-    return (analog.getValue()*48.78136376-4.985354503)*-1;//return the distance in inches
+    return (analog.getValue()*48.78136376-4.985354503);//return the distance in inches
   }
 
   @Override
