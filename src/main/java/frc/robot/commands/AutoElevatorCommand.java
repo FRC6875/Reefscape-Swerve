@@ -24,8 +24,8 @@ public class AutoElevatorCommand extends Command {
   addRequirements(RobotContainer.m_elevatorSubsystem);
   }
 
-  //f
-  
+ 
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
