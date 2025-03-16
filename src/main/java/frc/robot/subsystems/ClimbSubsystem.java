@@ -33,13 +33,10 @@ public class ClimbSubsystem extends SubsystemBase {
       .d(0)//?
       .outputRange(-0.3, 0.3);
   
-      resetEncoder();
-    
+     
 
   }
-  public void resetEncoder(){
-    climbMotor.getEncoder().setPosition(0);
-  }
+  
 
   public void setSpeed(double speed) {
 

@@ -5,38 +5,37 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.LaserSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AutoElevatorCommand extends Command {
-  /** Creates a new ElevatorPositionCommand. */
+public class PositionTeleopElevator extends Command {
+  /** Creates a new PositionTeleopElevator. */
   ElevatorSubsystem m_elevatorSubsystem;
+  LaserSubsystem m_laserSubsystem;
   double m_dist;
+  double m_laserDist;
   String m_direction;
-
-  public AutoElevatorCommand(ElevatorSubsystem elevatorSubsystem, double dist, String direction) {
+  
+  public PositionTeleopElevator(ElevatorSubsystem elevatorSubsystem, LaserSubsystem laserSubsystem, double dist, double laserDist, String direction) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_elevatorSubsystem = elevatorSubsystem;
+    m_laserSubsystem = laserSubsystem;
     m_dist = dist;
+    m_laserDist = laserDist;
     m_direction = direction;
 
-  addRequirements(RobotContainer.m_elevatorSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_elevatorSubsystem.resetEncoder();
-  //reset encoders
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     m_elevatorSubsystem.setSpeed(0.1);
-    //run motor in specified direction
-  
+    m_elevatorSubsystem.runToPosition(m_dist);
   }
 
   // Called once the command ends or is interrupted.
@@ -49,23 +48,8 @@ public class AutoElevatorCommand extends Command {
   @Override
   public boolean isFinished() {
 
-    //check if encoder value is greater than or equal to distance inputted
-    
-    //without tolerance
-    if(m_direction.equals("up")){
-    if(m_elevatorSubsystem.getEncoderValue()>=m_dist)return true;
-    else return false;
-    }
-    else if(m_direction.equals("down")){
-      if(m_elevatorSubsystem.getEncoderValue()<=m_dist)return true;
-    else return false;
-    }
-    else{
-      return true;
-    }
-    // 2 is the tolerance
-   // if(Math.abs(m_elevatorSubsystem.getEncoderValue() - m_dist) < 0.5) return true;
-   // else return false;
- 
+  if(m_laserSubsystem.getValue()>=m_laserDist)return true;
+    else
+    return false;
   }
 }
