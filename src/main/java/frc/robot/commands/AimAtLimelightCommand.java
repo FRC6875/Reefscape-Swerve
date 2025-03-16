@@ -37,13 +37,13 @@ public class AimAtLimelightCommand extends Command {
   @Override
   public void execute() {
 
-    if(LimelightHelpers.getFiducialID(limelightName)==-1){
-      m_swerveSubsystem.driveFieldOrientated(0);//ask(set drive speed to 0 if don't see a apriltag)
+   // if(LimelightHelpers.getFiducialID(limelightName)==-1){
+     // m_swerveSubsystem.driveFieldOrientated(0);//ask(set drive speed to 0 if don't see a apriltag)
 
-    }else{
-      double response = m_pidController.calculate(LimelightHelpers.getTX(limelightName));
-      m_swerveSubsystem.driveFieldOrientated(response);
-    }
+   // }else{
+    //  double response = m_pidController.calculate(LimelightHelpers.getTX(limelightName));
+     // m_swerveSubsystem.driveFieldOrientated(response);
+ //   }
 
   }
 
@@ -51,7 +51,7 @@ public class AimAtLimelightCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-m_swerveSubsystem.driveFieldOrientated(0);//setSpeed
+
 
   }
 

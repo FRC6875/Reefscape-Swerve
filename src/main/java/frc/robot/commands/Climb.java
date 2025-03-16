@@ -9,7 +9,7 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.ClimbSubsystem;
 
 
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
+/* You should consider  using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class Climb extends Command {
   /** Creates a new Climb. */
 

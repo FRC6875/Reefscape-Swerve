@@ -10,7 +10,7 @@ import frc.robot.subsystems.ElevatorSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AutoElevatorCommand extends Command {
-  /** Creates a new ElevatorPositionCommand. */
+  /** Creates a new  ElevatorPositionCommand. */
   ElevatorSubsystem m_elevatorSubsystem;
   double m_dist;
   String m_direction;
