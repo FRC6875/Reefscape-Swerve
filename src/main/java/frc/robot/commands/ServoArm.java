@@ -8,6 +8,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ServoSubsystem;
+import frc.robot.RobotContainer;
 import frc.robot.generated.MechanismConstants.ServoConstants;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -18,6 +19,8 @@ public class ServoArm extends Command {
   public ServoArm(ServoSubsystem servoSubsystem, double angle) {
     m_angle=angle;
     m_servoSubsystem = servoSubsystem;
+   // addRequirements(RobotContainer.m_servoSubsystem);
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
