@@ -47,6 +47,22 @@ public void runToPosition(double position){
 elevatorController.setReference(position, SparkBase.ControlType.kPosition);
 }
 
+public void moveToPosition(double position) {
+  double kP = 0.1; // Proportional constant, adjust as needed
+  double tolerance = 0.2; // Allowable error margin
+
+  double error = position - elevatorEncoder.getPosition();//diff between current position and target
+  double speed = kP * error; // Calculate speed based on error
+
+  speed = Math.max(-0.5, Math.min(0.5, speed)); // Clamp speed between -0.5 and 0.5
+
+  if (Math.abs(error) > tolerance) {
+      elevatorMotor.set(speed); // Move the motor
+  } else {
+      elevatorMotor.stopMotor(); // Stop if within tolerance
+  }
+}
+
   public void resetEncoder(){
     elevatorMotor.getEncoder().setPosition(0);
   }

@@ -34,7 +34,8 @@ public class PositionTeleopElevator extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_elevatorSubsystem.runToPosition(m_dist);
+   // m_elevatorSubsystem.runToPosition(m_dist);
+   m_elevatorSubsystem.moveToPosition(m_dist);
   }
 
   // Called once the command ends or is interrupted.
@@ -47,8 +48,8 @@ public class PositionTeleopElevator extends Command {
   @Override
   public boolean isFinished() {
 
- if(m_laserSubsystem.getValue()>=m_laserDist)return true;
-    else
+ //if(m_laserSubsystem.getValue()>=m_laserDist)return true;
+  //  else
     return false;
   }
 }
