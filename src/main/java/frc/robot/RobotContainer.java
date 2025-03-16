@@ -42,6 +42,8 @@ import frc.robot.generated.MechanismConstants.ServoConstants;;
 
 
 public class RobotContainer {
+
+    
     
         private final CommandXboxController driverJoystick = new CommandXboxController(0);
         private final CommandXboxController operatorJoystick = new CommandXboxController(1);
@@ -88,9 +90,12 @@ Command driveRobotOrientatedAngularVelocity = drivebase.driveFieldOrientated(dri
     public final static ArmSubsystem m_armSubsystem=new ArmSubsystem();
     public final static LaserSubsystem m_laserSubsystem=new LaserSubsystem();
   //  public final static ServoSubsystem m_servoSubsystem = new ServoSubsystem();
-    public RobotContainer() {
+  
+  
+  public RobotContainer() {
         configureBindings();
 
+        m_elevatorSubsystem.resetEncoder();
         drivebase.setDefaultCommand(driveFieldOrientatedDirectAngularVelocity);
 
         // m_chooser.addOption("Elevator Test Auto", m_Seq_ElevatorAuto);
