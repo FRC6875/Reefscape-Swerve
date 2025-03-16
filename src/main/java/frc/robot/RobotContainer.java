@@ -76,7 +76,7 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
     public final static ClimbSubsystem m_climbSubsystem=new ClimbSubsystem();
     public final static ArmSubsystem m_armSubsystem=new ArmSubsystem();
     public final static LaserSubsystem m_laserSubsystem=new LaserSubsystem();
-    public final static ServoSubsystem m_servoSubsystem = new ServoSubsystem();
+    //public final static ServoSubsystem m_servoSubsystem = new ServoSubsystem();
     public RobotContainer() {
         configureBindings();
 
@@ -84,6 +84,10 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
 
         // m_chooser.addOption("Elevator Test Auto", m_Seq_ElevatorAuto);
         m_chooser.addOption( "Testing Simple", new PathPlannerAuto("testing simple"));
+        m_chooser.addOption( "Leave", new PathPlannerAuto("Leave L4"));
+        m_chooser.addOption( "Left Corner To I L2", new PathPlannerAuto("Left Corner To I L2"));
+
+
         // m_chooser.addOption( "Testing Complicated", new PathPlannerAuto("testing complicated"));
         SmartDashboard.putData("Auto Chooser",m_chooser);
 
@@ -112,8 +116,8 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
         operatorJoystick.y().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, -1, 1,null));
         operatorJoystick.x().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, -2,2, null));
     
-        operatorJoystick.povUp().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionOrignal));
-        operatorJoystick.povRight().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionRelease));
+      //  operatorJoystick.povUp().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionOrignal));
+      //  operatorJoystick.povRight().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionRelease));
     }
 
     public Command getAutonomousCommand() {
