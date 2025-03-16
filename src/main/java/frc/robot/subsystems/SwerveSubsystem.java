@@ -74,6 +74,13 @@ public class SwerveSubsystem extends SubsystemBase {
     swerveDrive.resetOdometry(initialHolonomicPose);
   }
 
+  public void drive(Translation2d translation, double rotation, boolean fieldRelative) {
+		swerveDrive.drive(translation,
+				rotation,
+				fieldRelative,
+				false); // Open loop is disabled since it shouldn't be used most of the time.
+	}
+
   /**
    * Gets the current pose (position and rotation) of the robot, as reported by odometry.
    *

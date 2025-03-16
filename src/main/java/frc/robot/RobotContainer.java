@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.AlignToReefTagRelative;
 import frc.robot.commands.AutoElevatorCommand;
 import frc.robot.commands.Climb;
 import frc.robot.commands.PositionTeleopElevator;
@@ -56,7 +57,7 @@ public class RobotContainer {
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
 
-    SwerveInputStream driveRobotOrientated = SwerveInputStream.of(drivebase.getSwerveDrive(),
+SwerveInputStream driveRobotOrientated = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                 () -> driverJoystick.getLeftY()*-0.5,
                                                                 () -> driverJoystick.getLeftX()*-0.5)
                                                                 .withControllerRotationAxis(
@@ -127,6 +128,9 @@ Command driveRobotOrientatedAngularVelocity = drivebase.driveFieldOrientated(dri
     
         operatorJoystick.povUp().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionOrignal));
         operatorJoystick.povRight().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionRelease));
+
+        driverJoystick.povRight().onTrue(new AlignToReefTagRelative(true, drivebase).withTimeout(3));
+		driverJoystick.povLeft().onTrue(new AlignToReefTagRelative(false, drivebase).withTimeout(3));
     }
 
     public Command getAutonomousCommand() {
