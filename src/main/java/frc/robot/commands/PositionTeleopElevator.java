@@ -4,7 +4,14 @@
 
 package frc.robot.commands;
 
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkMaxConfig;
+
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.generated.MechanismConstants.ElevatorConstants;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.LaserSubsystem;
 
@@ -16,6 +23,12 @@ public class PositionTeleopElevator extends Command {
   double m_dist;
   double m_laserDist;
   String m_direction;
+  SparkMax elevatorMotor = new SparkMax(ElevatorConstants.kElevatorPort, MotorType.kBrushless);
+  SparkMaxConfig config = new SparkMaxConfig();
+  RelativeEncoder elevatorEncoder = elevatorMotor.getEncoder(); //42
+  SparkClosedLoopController elevatorController = elevatorMotor.getClosedLoopController();
+
+
   
   public PositionTeleopElevator(ElevatorSubsystem elevatorSubsystem, LaserSubsystem laserSubsystem,double dist, double laserDist, String direction) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -35,7 +48,20 @@ public class PositionTeleopElevator extends Command {
   @Override
   public void execute() {
    // m_elevatorSubsystem.runToPosition(m_dist);
-   m_elevatorSubsystem.moveToPosition(m_dist);
+  // m_elevatorSubsystem.moveToPosition(m_dist);
+  double kP = 0.1; // Proportional constant, adjust as needed
+  double tolerance = 0.2; // Allowable error margin
+
+  double error = m_dist - elevatorEncoder.getPosition();//diff between current position and target
+  double speed = kP * error; // Calculate speed based on error
+
+  speed = Math.max(-0.5, Math.min(0.5, speed)); // Clamp speed between -0.5 and 0.5
+
+  if (Math.abs(error) > tolerance) {
+      elevatorMotor.set(speed); // Move the motor
+  } else {
+      elevatorMotor.stopMotor(); // Stop if within tolerance
+  }
   }
 
   // Called once the command ends or is interrupted.
