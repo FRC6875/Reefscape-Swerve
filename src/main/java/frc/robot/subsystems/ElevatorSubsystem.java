@@ -49,7 +49,7 @@ elevatorController.setReference(position, SparkBase.ControlType.kPosition);
 
 public void moveToPosition(double position) {
   double kP = 0.1; // Proportional constant, adjust as needed
-  double tolerance = 0.2; // Allowable error margin
+  double tolerance = 1; // Allowable error margin
 
   double error = position - elevatorEncoder.getPosition();//diff between current position and target
   double speed = kP * error; // Calculate speed based on error
