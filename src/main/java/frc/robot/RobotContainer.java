@@ -86,7 +86,7 @@ Command driveRobotOrientatedAngularVelocity = drivebase.driveFieldOrientated(dri
     public final Seq_ElevatorAuto m_Seq_ElevatorAuto = new Seq_ElevatorAuto(m_elevatorSubsystem);
     public final static ClimbSubsystem m_climbSubsystem=new ClimbSubsystem();
     public final static ArmSubsystem m_armSubsystem=new ArmSubsystem();
-    public final static LaserSubsystem m_laserSubsystem=new LaserSubsystem();
+   // public final static LaserSubsystem m_laserSubsystem=new LaserSubsystem();
   //  public final static ServoSubsystem m_servoSubsystem = new ServoSubsystem();
     public RobotContainer() {
         configureBindings();
@@ -113,17 +113,19 @@ Command driveRobotOrientatedAngularVelocity = drivebase.driveFieldOrientated(dri
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
-        driverJoystick.a().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "up"));
-        driverJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, -16.0, "down"));
-        driverJoystick.rightBumper().whileTrue(new Climb(m_climbSubsystem, true,0.3));
-        driverJoystick.leftBumper().whileTrue(new Climb(m_climbSubsystem, false,0.3));
+       // operatorJoystick.a().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, -16.0, "up"));
+       // operatorJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "down"));
+        operatorJoystick.rightBumper().whileTrue(new Climb(m_climbSubsystem, true,0.3));
+        operatorJoystick.leftBumper().whileTrue(new Climb(m_climbSubsystem, false,0.3));
         driverJoystick.y().toggleOnTrue(driveRobotOrientatedAngularVelocity);
+        driverJoystick.b().toggleOnTrue(driveFieldOrientatedDirectAngularVelocity);
+
 
         m_elevatorSubsystem.setDefaultCommand(new TeleopElevator(m_elevatorSubsystem, () -> operatorJoystick.getRightTriggerAxis(), ()->operatorJoystick.getLeftTriggerAxis()));
-        operatorJoystick.a().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, 0,0, null));
-        operatorJoystick.b().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, -3,3, null));
-        operatorJoystick.y().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, -1, 1,null));
-        operatorJoystick.x().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, -2,2, null));
+        operatorJoystick.a().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, 0, null));
+        operatorJoystick.b().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, -60, null));
+        operatorJoystick.y().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, -1, null));
+        operatorJoystick.x().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, -2, null));
     
       //  operatorJoystick.povUp().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionOrignal));
       //  operatorJoystick.povRight().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionRelease));

@@ -36,7 +36,7 @@ public class TeleopElevator extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    speed=up.getAsDouble()-down.getAsDouble();
+    speed=(up.getAsDouble()-down.getAsDouble())*0.3;
 
     m_elevatorSubsystem.setSpeed(speed);
     //run motor in specified direction

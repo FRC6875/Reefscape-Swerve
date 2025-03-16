@@ -12,17 +12,17 @@ import frc.robot.subsystems.LaserSubsystem;
 public class PositionTeleopElevator extends Command {
   /** Creates a new PositionTeleopElevator. */
   ElevatorSubsystem m_elevatorSubsystem;
-  LaserSubsystem m_laserSubsystem;
+ // LaserSubsystem m_laserSubsystem;
   double m_dist;
-  double m_laserDist;
+ // double m_laserDist;
   String m_direction;
   
-  public PositionTeleopElevator(ElevatorSubsystem elevatorSubsystem, LaserSubsystem laserSubsystem, double dist, double laserDist, String direction) {
+  public PositionTeleopElevator(ElevatorSubsystem elevatorSubsystem, double dist, String direction) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_elevatorSubsystem = elevatorSubsystem;
-    m_laserSubsystem = laserSubsystem;
+   // m_laserSubsystem = laserSubsystem;
     m_dist = dist;
-    m_laserDist = laserDist;
+    //m_laserDist = laserDist;
     m_direction = direction;
 
   }
@@ -34,7 +34,6 @@ public class PositionTeleopElevator extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_elevatorSubsystem.setSpeed(0.1);
     m_elevatorSubsystem.runToPosition(m_dist);
   }
 
@@ -48,8 +47,8 @@ public class PositionTeleopElevator extends Command {
   @Override
   public boolean isFinished() {
 
-  if(m_laserSubsystem.getValue()>=m_laserDist)return true;
-    else
+ // if(m_laserSubsystem.getValue()>=m_laserDist)return true;
+ //   else
     return false;
   }
 }

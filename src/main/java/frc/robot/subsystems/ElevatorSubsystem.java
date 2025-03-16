@@ -36,7 +36,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     config.encoder
     .positionConversionFactor(ElevatorConstants.kElevatorEncoderConvFact);
     config.closedLoop
-    .p(1.0)
+    .p(1)
     .i(0)
     .d(0)
     .outputRange(-0.3, 0.3);
