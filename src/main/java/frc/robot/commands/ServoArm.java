@@ -23,7 +23,7 @@ public class ServoArm extends Command {
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
-
+//HI
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
