@@ -8,9 +8,9 @@ import org.photonvision.PhotonCamera;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class LimeLight extends SubsystemBase {
+public class LimeLightSubsystem extends SubsystemBase {
   /** Creates a new LimeLight. */
-  public LimeLight() {
+  public LimeLightSubsystem() {
     
   }
 

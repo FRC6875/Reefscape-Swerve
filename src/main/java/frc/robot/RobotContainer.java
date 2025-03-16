@@ -55,6 +55,16 @@ public class RobotContainer {
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
+
+    SwerveInputStream driveRobotOrientated = SwerveInputStream.of(drivebase.getSwerveDrive(),
+                                                                () -> driverJoystick.getLeftY()*-0.5,
+                                                                () -> driverJoystick.getLeftX()*-0.5)
+                                                                .withControllerRotationAxis(
+                                                                () -> driverJoystick.getRightX()*-1)
+                                                                .deadband(OperatorConstants.DEADBAND)
+                                                                .scaleTranslation(0.8)
+                                                                .robotRelative(true)
+                                                                .allianceRelativeControl(false);
     
 
                                                       
@@ -65,6 +75,7 @@ SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerH
 
 Command driveFieldOrientatedDirectAngle = drivebase.driveFieldOrientated(driveDirectAngle);
 Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientated(driveAngularVelocity);
+Command driveRobotOrientatedAngularVelocity = drivebase.driveFieldOrientated(driveRobotOrientated);
     /* Setting up bindings for necessary control of the swerve drive platform */
 
     SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -106,6 +117,8 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
         driverJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, -16.0, "down"));
         driverJoystick.rightBumper().whileTrue(new Climb(m_climbSubsystem, true,0.3));
         driverJoystick.leftBumper().whileTrue(new Climb(m_climbSubsystem, false,0.3));
+        driverJoystick.y().toggleOnTrue(driveRobotOrientatedAngularVelocity);
+
         m_elevatorSubsystem.setDefaultCommand(new TeleopElevator(m_elevatorSubsystem, () -> operatorJoystick.getRightTriggerAxis(), ()->operatorJoystick.getLeftTriggerAxis()));
         operatorJoystick.a().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, 0,0, null));
         operatorJoystick.b().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, -3,3, null));
