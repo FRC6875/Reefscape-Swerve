@@ -124,8 +124,8 @@ Command driveRobotOrientatedAngularVelocity = drivebase.driveFieldOrientated(dri
         // Note that each routine should be run exactly once in a single log.
        // operatorJoystick.a().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, -16.0, "up"));
        // operatorJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "down"));
-        operatorJoystick.rightBumper().whileTrue(new Climb(m_climbSubsystem, true,0.3));
-        operatorJoystick.leftBumper().whileTrue(new Climb(m_climbSubsystem, false,0.3));
+       // operatorJoystick.rightBumper().whileTrue(new Climb(m_climbSubsystem, true,0.3));
+        driverJoystick.leftBumper().whileTrue(new Climb(m_climbSubsystem, false,0.3));
         driverJoystick.y().toggleOnTrue(driveRobotOrientatedAngularVelocity);
         driverJoystick.b().toggleOnTrue(driveFieldOrientatedDirectAngularVelocity);
 
