@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.LaserSubsystem;
 
@@ -24,6 +25,7 @@ public class PositionTeleopElevator extends Command {
     m_dist = dist;
     m_laserDist = laserDist;
     //m_direction = direction;
+    addRequirements(RobotContainer.m_elevatorSubsystem);
 
   }
 

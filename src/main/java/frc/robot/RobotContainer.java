@@ -34,11 +34,13 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.IntakeWheelsSubsystem;
 import frc.robot.subsystems.LaserSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveInputStream;
 import frc.robot.subsystems.ServoSubsystem;
 import frc.robot.commands.ServoArm;
+import frc.robot.commands.IntakeWheels;
 import frc.robot.generated.MechanismConstants.ServoConstants;
 
 
@@ -93,6 +95,7 @@ Command driveRobotOrientatedAngularVelocity = drivebase.driveFieldOrientated(dri
     public final static ArmSubsystem m_armSubsystem=new ArmSubsystem();
     public final static LaserSubsystem m_laserSubsystem=new LaserSubsystem();
     public final static IntakeSubsystem m_intakeSubsystem=new IntakeSubsystem();
+    public final static IntakeWheelsSubsystem m_intakeWheelsSubsystem=new IntakeWheelsSubsystem();
     //  public final static ServoSubsystem m_servoSubsystem = new ServoSubsystem();
   
   
@@ -137,6 +140,8 @@ Command driveRobotOrientatedAngularVelocity = drivebase.driveFieldOrientated(dri
         operatorJoystick.x().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,  m_laserSubsystem,-5, 2));
         operatorJoystick.povUp().onTrue(new Intake(m_intakeSubsystem, 0));
         operatorJoystick.povDown().onTrue(new Intake(m_intakeSubsystem, 0.5));
+        operatorJoystick.leftBumper().whileTrue(new IntakeWheels(m_intakeWheelsSubsystem, 0.3,true));
+        operatorJoystick.rightBumper().whileTrue(new IntakeWheels(m_intakeWheelsSubsystem, 0.3,false));
       //  operatorJoystick.povUp().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionOrignal));
       //  operatorJoystick.povRight().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionRelease));
     }
