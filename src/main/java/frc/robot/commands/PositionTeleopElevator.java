@@ -47,9 +47,12 @@ public class PositionTeleopElevator extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    //if the encoder value reaches the target,stop
+    if (Math.abs(m_elevatorSubsystem.getEncoderValue()-m_dist)<=0.3) return true;
+    //else if the laser value reaches the target,stop
+    else if(m_laserSubsystem.getValue()>=m_laserDist)return true;
 
- //if(m_laserSubsystem.getValue()>=m_laserDist)return true;
-  //  else
+    else
     return false;
   }
 }
