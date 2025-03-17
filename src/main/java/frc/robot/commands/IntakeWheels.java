@@ -20,7 +20,7 @@ public class IntakeWheels extends Command {
     m_intakeWheelsSubsystem = intakeWheelsSubsystem;
     this.speed = speed;
     m_forward = forward;
-    //addRequirements(RobotContainer.m_intakeWheelsSubsystem);
+    addRequirements(RobotContainer.m_intakeWheelsSubsystem);
   }
 
   // Called when the command is initially scheduled.
