@@ -127,8 +127,8 @@ Command driveRobotOrientatedAngularVelocity = drivebase.driveFieldOrientated(dri
 
 
         m_elevatorSubsystem.setDefaultCommand(new TeleopElevator(m_elevatorSubsystem, () -> operatorJoystick.getRightTriggerAxis(), ()->operatorJoystick.getLeftTriggerAxis()));
-        operatorJoystick.a().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, m_laserSubsystem,0, 0,null));
-        operatorJoystick.b().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,  m_laserSubsystem,-60, 16,null));
+        operatorJoystick.a().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, m_laserSubsystem,1, 0,null));
+        operatorJoystick.b().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,  m_laserSubsystem,-15, 16,null));
         operatorJoystick.y().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,  m_laserSubsystem,-1, 1,null));
         operatorJoystick.x().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,  m_laserSubsystem,-5, 2,null));
     
