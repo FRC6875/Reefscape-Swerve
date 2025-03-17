@@ -17,13 +17,13 @@ public class PositionTeleopElevator extends Command {
   double m_laserDist;
   String m_direction;
   
-  public PositionTeleopElevator(ElevatorSubsystem elevatorSubsystem, LaserSubsystem laserSubsystem,double dist, double laserDist, String direction) {
+  public PositionTeleopElevator(ElevatorSubsystem elevatorSubsystem, LaserSubsystem laserSubsystem,double dist, double laserDist) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_elevatorSubsystem = elevatorSubsystem;
     m_laserSubsystem = laserSubsystem;
     m_dist = dist;
     m_laserDist = laserDist;
-    m_direction = direction;
+    //m_direction = direction;
 
   }
 

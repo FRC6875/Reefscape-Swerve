@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AutoElevatorCommand;
 import frc.robot.commands.Climb;
+import frc.robot.commands.Intake;
 import frc.robot.commands.PositionTeleopElevator;
 import frc.robot.commands.Seq_ElevatorAuto;
 import frc.robot.commands.TeleopElevator;
@@ -32,12 +33,14 @@ import frc.robot.generated.MechanismConstants.ServoConstants;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LaserSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveInputStream;
 import frc.robot.subsystems.ServoSubsystem;
 import frc.robot.commands.ServoArm;
-import frc.robot.generated.MechanismConstants.ServoConstants;;
+import frc.robot.generated.MechanismConstants.ServoConstants;
+
 
 
 
@@ -89,7 +92,8 @@ Command driveRobotOrientatedAngularVelocity = drivebase.driveFieldOrientated(dri
     public final static ClimbSubsystem m_climbSubsystem=new ClimbSubsystem();
     public final static ArmSubsystem m_armSubsystem=new ArmSubsystem();
     public final static LaserSubsystem m_laserSubsystem=new LaserSubsystem();
-  //  public final static ServoSubsystem m_servoSubsystem = new ServoSubsystem();
+    public final static IntakeSubsystem m_intakeSubsystem=new IntakeSubsystem();
+    //  public final static ServoSubsystem m_servoSubsystem = new ServoSubsystem();
   
   
   public RobotContainer() {
@@ -127,11 +131,12 @@ Command driveRobotOrientatedAngularVelocity = drivebase.driveFieldOrientated(dri
 
 
         m_elevatorSubsystem.setDefaultCommand(new TeleopElevator(m_elevatorSubsystem, () -> operatorJoystick.getRightTriggerAxis(), ()->operatorJoystick.getLeftTriggerAxis()));
-        operatorJoystick.a().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, m_laserSubsystem,1, 0,null));
-        operatorJoystick.b().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,  m_laserSubsystem,-15, 16,null));
-        operatorJoystick.y().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,  m_laserSubsystem,-1, 1,null));
-        operatorJoystick.x().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,  m_laserSubsystem,-5, 2,null));
-    
+        operatorJoystick.a().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, m_laserSubsystem,1, 0));
+        operatorJoystick.b().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,  m_laserSubsystem,-15, 16));
+        operatorJoystick.y().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,  m_laserSubsystem,-1, 1));
+        operatorJoystick.x().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,  m_laserSubsystem,-5, 2));
+        operatorJoystick.povUp().onTrue(new Intake(m_intakeSubsystem, 0));
+        operatorJoystick.povDown().onTrue(new Intake(m_intakeSubsystem, 0.5));
       //  operatorJoystick.povUp().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionOrignal));
       //  operatorJoystick.povRight().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionRelease));
     }
