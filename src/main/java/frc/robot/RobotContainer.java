@@ -91,7 +91,8 @@ Command driveRobotOrientatedAngularVelocity = drivebase.driveFieldOrientated(dri
     public final Seq_ElevatorAuto m_Seq_ElevatorAuto = new Seq_ElevatorAuto(m_elevatorSubsystem);
     public final static ClimbSubsystem m_climbSubsystem=new ClimbSubsystem();
     public final static LaserSubsystem m_laserSubsystem=new LaserSubsystem();
-  
+    public final static IntakeSubsystem m_intakeSubsystem=new IntakeSubsystem();
+    public final static IntakeWheelsSubsystem m_intakeWheelsSubsystem=new IntakeWheelsSubsystem();
     public RobotContainer() {
         configureBindings();
 
