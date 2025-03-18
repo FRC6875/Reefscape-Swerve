@@ -29,8 +29,6 @@ import frc.robot.commands.Intake;
 import frc.robot.commands.PositionTeleopElevator;
 import frc.robot.commands.Seq_ElevatorAuto;
 import frc.robot.commands.TeleopElevator;
-import frc.robot.generated.MechanismConstants.ServoConstants;
-import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -39,7 +37,6 @@ import frc.robot.subsystems.LaserSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveInputStream;
 import frc.robot.commands.IntakeWheels;
-import frc.robot.generated.MechanismConstants.ServoConstants;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 
@@ -93,7 +90,6 @@ Command driveRobotOrientatedAngularVelocity = drivebase.driveFieldOrientated(dri
     public final static ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
     public final Seq_ElevatorAuto m_Seq_ElevatorAuto = new Seq_ElevatorAuto(m_elevatorSubsystem);
     public final static ClimbSubsystem m_climbSubsystem=new ClimbSubsystem();
-    public final static ArmSubsystem m_armSubsystem=new ArmSubsystem();
     public final static LaserSubsystem m_laserSubsystem=new LaserSubsystem();
   
     public RobotContainer() {

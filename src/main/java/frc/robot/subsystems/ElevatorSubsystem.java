@@ -69,6 +69,7 @@ public void moveToPosition(double position) {
 
   }
 }
+//zhi
 
   public void resetEncoder(){
     elevatorMotor.getEncoder().setPosition(0);
