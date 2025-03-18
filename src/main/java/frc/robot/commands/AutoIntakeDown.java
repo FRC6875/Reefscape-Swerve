@@ -4,47 +4,48 @@
 
 package frc.robot.commands;
 
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.ElevatorSubsystem;
-
+import frc.robot.subsystems.IntakeSubsystem;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AutoElevatorTrough extends Command {
-  ElevatorSubsystem m_elevatorSubsystem;
-  double m_dist;
-  String m_direction;
-  /** Creates a new AutoElevatorTrough. */
-  public AutoElevatorTrough(ElevatorSubsystem elevatorSubsystem, double dist, String direction) {
-    m_elevatorSubsystem = elevatorSubsystem;
-    m_dist = dist;
-    m_direction = direction;
 
-  addRequirements(RobotContainer.m_elevatorSubsystem);
-  }
+
+public class AutoIntakeDown extends Command {
+  /** Creates a new Intake. */
+  IntakeSubsystem m_intakeSubsystem;
+  double m_posi;
+
+  public AutoIntakeDown(IntakeSubsystem intakeSubsystem, double posi) {
     // Use addRequirements() here to declare subsystem dependencies.
-  
+    m_intakeSubsystem = intakeSubsystem;
+    m_posi = posi;
+    addRequirements(RobotContainer.m_intakeSubsystem);
+  }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-   m_elevatorSubsystem.resetEncoder();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_elevatorSubsystem.runToPosition(-4);
+
+    m_intakeSubsystem.moveToPosition(1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_elevatorSubsystem.stop();
+    m_intakeSubsystem.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (Math.abs(m_intakeSubsystem.getEncoderValue()-m_posi)<=0.3) return true;
+    else return false;
   }
 }
