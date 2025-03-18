@@ -4,61 +4,51 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.IntakeWheelsSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class TeleopElevator extends Command {
- ElevatorSubsystem m_elevatorSubsystem;
+public class IntakeWheels extends Command {
+  /** Creates a new IntakeWheels. */
+  IntakeWheelsSubsystem m_intakeWheelsSubsystem;
   double speed;
-  String m_direction;
-  DoubleSupplier up,down;
+  boolean m_forward;
 
-  public TeleopElevator(ElevatorSubsystem elevatorSubsystem, DoubleSupplier up,DoubleSupplier down) {
+  public IntakeWheels(IntakeWheelsSubsystem intakeWheelsSubsystem, double speed, boolean forward) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_elevatorSubsystem = elevatorSubsystem;
-    this.up=up;
-    this.down=down;
-    
-    addRequirements(RobotContainer.m_elevatorSubsystem);
-
+    m_intakeWheelsSubsystem = intakeWheelsSubsystem;
+    this.speed = speed;
+    m_forward = forward;
+    addRequirements(RobotContainer.m_intakeWheelsSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  //reset encoders
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    speed=(up.getAsDouble()-down.getAsDouble())*0.3;
 
-    m_elevatorSubsystem.setSpeed(speed);
-    //run motor in specified direction
-  
+    if(m_forward){
+      m_intakeWheelsSubsystem.setSpeed(speed);
+    }
+    else{
+      m_intakeWheelsSubsystem.setSpeed(-1*speed);
+    }
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_elevatorSubsystem.stop();
+    m_intakeWheelsSubsystem.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-
-    //check if encoder value is greater than or equal to distance inputted
-    
-    //without tolerance
-   return false;
-    // 2 is the tolerance
-//    if(Math.abs(m_elevatorSubsystem.getEncoderValue() - m_dist) < 0.5) return true;
-//    else return false;
- }
+    return false;
+  }
 }

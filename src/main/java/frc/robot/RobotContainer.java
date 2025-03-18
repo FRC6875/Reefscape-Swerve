@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AutoElevatorCommand;
 import frc.robot.commands.Climb;
+import frc.robot.commands.Intake;
 import frc.robot.commands.PositionTeleopElevator;
 import frc.robot.commands.Seq_ElevatorAuto;
 import frc.robot.commands.TeleopElevator;
@@ -32,17 +33,24 @@ import frc.robot.generated.MechanismConstants.ServoConstants;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.IntakeWheelsSubsystem;
 import frc.robot.subsystems.LaserSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveInputStream;
-import frc.robot.subsystems.ServoSubsystem;
-import frc.robot.commands.ServoArm;
-import frc.robot.generated.MechanismConstants.ServoConstants;;
+import frc.robot.commands.IntakeWheels;
+import frc.robot.generated.MechanismConstants.ServoConstants;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
+
 
 
 
 public class RobotContainer {
-    
+
+        private final UsbCamera climbCamera = CameraServer.startAutomaticCapture();
+        private final UsbCamera coralCamera = CameraServer.startAutomaticCapture();
+
         private final CommandXboxController driverJoystick = new CommandXboxController(0);
         private final CommandXboxController operatorJoystick = new CommandXboxController(1);
 
@@ -55,6 +63,16 @@ public class RobotContainer {
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
+
+SwerveInputStream driveRobotOrientated = SwerveInputStream.of(drivebase.getSwerveDrive(),
+                                                                () -> driverJoystick.getLeftY()*-0.5,
+                                                                () -> driverJoystick.getLeftX()*-0.5)
+                                                                .withControllerRotationAxis(
+                                                                () -> driverJoystick.getRightX()*-1)
+                                                                .deadband(OperatorConstants.DEADBAND)
+                                                                .scaleTranslation(0.8)
+                                                                .robotRelative(true)
+                                                                .allianceRelativeControl(false);
     
 
                                                       
@@ -65,6 +83,7 @@ SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerH
 
 Command driveFieldOrientatedDirectAngle = drivebase.driveFieldOrientated(driveDirectAngle);
 Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientated(driveAngularVelocity);
+Command driveRobotOrientatedAngularVelocity = drivebase.driveFieldOrientated(driveRobotOrientated);
     /* Setting up bindings for necessary control of the swerve drive platform */
 
     SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -76,10 +95,11 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
     public final static ClimbSubsystem m_climbSubsystem=new ClimbSubsystem();
     public final static ArmSubsystem m_armSubsystem=new ArmSubsystem();
     public final static LaserSubsystem m_laserSubsystem=new LaserSubsystem();
-    //public final static ServoSubsystem m_servoSubsystem = new ServoSubsystem();
+  
     public RobotContainer() {
         configureBindings();
 
+        m_elevatorSubsystem.resetEncoder();
         drivebase.setDefaultCommand(driveFieldOrientatedDirectAngularVelocity);
 
         // m_chooser.addOption("Elevator Test Auto", m_Seq_ElevatorAuto);
@@ -106,15 +126,19 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
-        //driverJoystick.a().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "up"));
-        //driverJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, -16.0, "down"));
-        operatorJoystick.rightBumper().whileTrue(new Climb(m_climbSubsystem, true,0.3));
-        operatorJoystick.leftBumper().whileTrue(new Climb(m_climbSubsystem, false,0.3));
+       // operatorJoystick.a().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, -16.0, "up"));
+       // operatorJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "down"));
+       // operatorJoystick.rightBumper().whileTrue(new Climb(m_climbSubsystem, true,0.3));
+        driverJoystick.leftBumper().whileTrue(new Climb(m_climbSubsystem, false,0.3));
+        driverJoystick.y().toggleOnTrue(driveRobotOrientatedAngularVelocity);
+        driverJoystick.b().toggleOnTrue(driveFieldOrientatedDirectAngularVelocity);
+
+
         m_elevatorSubsystem.setDefaultCommand(new TeleopElevator(m_elevatorSubsystem, () -> operatorJoystick.getRightTriggerAxis(), ()->operatorJoystick.getLeftTriggerAxis()));
-        operatorJoystick.a().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, 0,0, null));
-        operatorJoystick.b().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, -3,3, null));
-        operatorJoystick.y().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, -1, 1,null));
-        operatorJoystick.x().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, -2,2, null));
+        operatorJoystick.a().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, 0,0));
+        operatorJoystick.b().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, -3,3));
+        operatorJoystick.y().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, -1, 1));
+        operatorJoystick.x().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,m_laserSubsystem, -2,2));
     
       //  operatorJoystick.povUp().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionOrignal));
       //  operatorJoystick.povRight().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionRelease));

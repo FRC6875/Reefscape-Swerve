@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.LaserSubsystem;
 
@@ -17,13 +18,14 @@ public class PositionTeleopElevator extends Command {
   double m_laserDist;
   String m_direction;
   
-  public PositionTeleopElevator(ElevatorSubsystem elevatorSubsystem, LaserSubsystem laserSubsystem, double dist, double laserDist, String direction) {
+  public PositionTeleopElevator(ElevatorSubsystem elevatorSubsystem, LaserSubsystem laserSubsystem,double dist, double laserDist) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_elevatorSubsystem = elevatorSubsystem;
     m_laserSubsystem = laserSubsystem;
     m_dist = dist;
     m_laserDist = laserDist;
-    m_direction = direction;
+    //m_direction = direction;
+    addRequirements(RobotContainer.m_elevatorSubsystem);
 
   }
 
@@ -34,8 +36,8 @@ public class PositionTeleopElevator extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_elevatorSubsystem.setSpeed(0.1);
-    m_elevatorSubsystem.runToPosition(m_dist);
+   // m_elevatorSubsystem.runToPosition(m_dist);
+   m_elevatorSubsystem.moveToPosition(m_dist);
   }
 
   // Called once the command ends or is interrupted.
@@ -47,8 +49,11 @@ public class PositionTeleopElevator extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    //if the encoder value reaches the target,stop
+    if (Math.abs(m_elevatorSubsystem.getEncoderValue()-m_dist)<=0.3) return true;
+    //else if the laser value reaches the target,stop
+    else if(m_laserSubsystem.getValue()>=m_laserDist)return true;
 
-  if(m_laserSubsystem.getValue()>=m_laserDist)return true;
     else
     return false;
   }
