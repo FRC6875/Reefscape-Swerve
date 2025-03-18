@@ -42,14 +42,17 @@ import frc.robot.subsystems.ServoSubsystem;
 import frc.robot.commands.ServoArm;
 import frc.robot.commands.IntakeWheels;
 import frc.robot.generated.MechanismConstants.ServoConstants;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 
 
 
 
 public class RobotContainer {
 
-    
-    
+        private final UsbCamera climbCamera = CameraServer.startAutomaticCapture();
+        private final UsbCamera coralCamera = CameraServer.startAutomaticCapture();
+
         private final CommandXboxController driverJoystick = new CommandXboxController(0);
         private final CommandXboxController operatorJoystick = new CommandXboxController(1);
 
