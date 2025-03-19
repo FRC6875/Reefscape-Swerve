@@ -37,8 +37,16 @@ public class IntakeWheelsSubsystem extends SubsystemBase {
     wheelMotor.set(speed);
   }
 
+  public void resetEncoder(){
+    wheelEncoder.setPosition(0);
+  }
+
   public void stop(){
     wheelMotor.stopMotor();
+  }
+
+  public double getEncoderValue(){
+    return wheelEncoder.getPosition();
   }
 
   @Override

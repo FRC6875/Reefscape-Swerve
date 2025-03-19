@@ -19,7 +19,7 @@ public class AutoIntakeDown extends Command {
   public AutoIntakeDown(IntakeSubsystem intakeSubsystem, double posi) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_intakeSubsystem = intakeSubsystem;
-    m_posi = posi;
+    m_posi = 1;
     addRequirements(RobotContainer.m_intakeSubsystem);
   }
 
@@ -33,7 +33,7 @@ public class AutoIntakeDown extends Command {
   @Override
   public void execute() {
 
-    m_intakeSubsystem.moveToPosition(1);
+    m_intakeSubsystem.moveToPosition(m_posi);
   }
 
   // Called once the command ends or is interrupted.

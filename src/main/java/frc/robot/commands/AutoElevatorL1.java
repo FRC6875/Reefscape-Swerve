@@ -20,8 +20,8 @@ public class AutoElevatorL1 extends Command {
   public AutoElevatorL1(ElevatorSubsystem elevatorSubsystem, LaserSubsystem laserSubsystem,double dist, double laserDist) {
     m_elevatorSubsystem = elevatorSubsystem;
     m_laserSubsystem = laserSubsystem;
-    m_dist = dist;
-    m_laserDist = laserDist;
+    m_dist = -5;
+    m_laserDist = 5;
     //m_direction = direction;
     addRequirements(RobotContainer.m_elevatorSubsystem);
   }
@@ -37,7 +37,7 @@ public class AutoElevatorL1 extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_elevatorSubsystem.moveToPosition(-5);
+    m_elevatorSubsystem.moveToPosition(m_dist);
   }
 
   // Called once the command ends or is interrupted.

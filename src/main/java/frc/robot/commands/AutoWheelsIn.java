@@ -4,45 +4,53 @@
 
 package frc.robot.commands;
 
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.IntakeSubsystem;
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AutoIntakeUp extends Command {
-  /** Creates a new Intake. */
-  IntakeSubsystem m_intakeSubsystem;
-  double m_posi;
+import frc.robot.subsystems.IntakeWheelsSubsystem;
 
-  public AutoIntakeUp(IntakeSubsystem intakeSubsystem, double posi) {
+/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
+public class AutoWheelsIn extends Command {
+  /** Creates a new IntakeWheels. */
+  IntakeWheelsSubsystem m_intakeWheelsSubsystem;
+  double speed;
+  boolean m_forward;
+
+  public AutoWheelsIn(IntakeWheelsSubsystem intakeWheelsSubsystem, double speed, boolean forward) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_intakeSubsystem = intakeSubsystem;
-    m_posi = 0.5;
-    addRequirements(RobotContainer.m_intakeSubsystem);
+    m_intakeWheelsSubsystem = intakeWheelsSubsystem;
+    this.speed = 0.3;
+    m_forward = forward;
+    addRequirements(RobotContainer.m_intakeWheelsSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    m_intakeWheelsSubsystem.resetEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    m_intakeSubsystem.moveToPosition(m_posi);
+      m_intakeWheelsSubsystem.setSpeed(speed);
+   
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intakeSubsystem.stop();
+    m_intakeWheelsSubsystem.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Math.abs(m_intakeSubsystem.getEncoderValue()-m_posi)<=0.3) return true;
-    else return false;
+
+    if(m_intakeWheelsSubsystem.getEncoderValue()>=2) return true;
+    else
+    return false;
   }
 }
