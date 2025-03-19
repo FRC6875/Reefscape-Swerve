@@ -26,8 +26,8 @@ public class MechanismConstants {
     public static final int kLaserPort = 0;
 }
     public static class IntakeConstants{
-        public static final int kIntakePort = 2;
-        public static final int kIntakeWheelPort = 3;
+        public static final int kIntakePort = 17;
+        public static final int kIntakeWheelPort = 16;
         public static final int kIntakeEncoderConvFact = (int) (360/42);
         public static final int kWheelEncoderConvFact = (int) (Math.PI*6/8.45);
     }
