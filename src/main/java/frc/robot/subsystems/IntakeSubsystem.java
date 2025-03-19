@@ -45,7 +45,7 @@ public class IntakeSubsystem extends SubsystemBase {
   double error = position - intakeEncoder.getPosition();//diff between current position and target
   double speed = kP * error; // Calculate speed based on error
 
-  speed = Math.max(-0.5, Math.min(0.5, speed)); // Clamp speed between -0.5 and 0.5
+  speed = Math.max(-0.3, Math.min(0.3, speed)); // Clamp speed between -0.5 and 0.5
 
   if (Math.abs(error) > tolerance) {
       intakeMotor.set(speed); // Move the motor

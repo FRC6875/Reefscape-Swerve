@@ -60,7 +60,7 @@ public void moveToPosition(double position) {
   else{
    speed = kP * error; // Calculate speed based on error
 }
-  speed = Math.max(-0.5, Math.min(0.5, speed)); // Clamp speed between -0.5 and 0.5
+  speed = Math.max(-0.3, Math.min(0.3, speed)); // Clamp speed between -0.5 and 0.5
 
   if (Math.abs(error) > tolerance) {
       elevatorMotor.set(speed); // Move the motor
