@@ -12,11 +12,13 @@ public class Intake extends Command {
   /** Creates a new Intake. */
   IntakeSubsystem m_intakeSubsystem;
   double m_posi;
+  double m_resistence;
 
-  public Intake(IntakeSubsystem intakeSubsystem, double posi) {
+  public Intake(IntakeSubsystem intakeSubsystem, double posi, double resistence) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_intakeSubsystem = intakeSubsystem;
     m_posi = posi;
+    m_resistence = resistence;
     addRequirements(RobotContainer.m_intakeSubsystem);
   }
 
@@ -36,13 +38,13 @@ public class Intake extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intakeSubsystem.stop();
+    m_intakeSubsystem.setSpeed(m_resistence);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Math.abs(m_intakeSubsystem.getEncoderValue()-m_posi)<=0.3) return true;
+    if (Math.abs(m_intakeSubsystem.getEncoderValue()-m_posi)<=0.02) return true;
     else return false;
   }
 }

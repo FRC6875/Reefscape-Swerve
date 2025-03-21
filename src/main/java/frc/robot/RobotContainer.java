@@ -136,10 +136,10 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
         operatorJoystick.b().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,  m_laserSubsystem,-15, 16));
         operatorJoystick.y().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,  m_laserSubsystem,-1, 1));
         operatorJoystick.x().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,  m_laserSubsystem,-5, 2));
-        operatorJoystick.povUp().onTrue(new Intake(m_intakeSubsystem, 0));
-        operatorJoystick.povDown().onTrue(new Intake(m_intakeSubsystem, 0.5));
-        operatorJoystick.povLeft().onTrue(new Intake(m_intakeSubsystem, 1));
-        operatorJoystick.povRight().onTrue(new Intake(m_intakeSubsystem, 20));
+        operatorJoystick.povUp().onTrue(new Intake(m_intakeSubsystem, 0,0));
+        operatorJoystick.povDown().onTrue(new Intake(m_intakeSubsystem, 0.5,0.1));
+        operatorJoystick.povLeft().onTrue(new Intake(m_intakeSubsystem, 1,0.1));
+        operatorJoystick.povRight().onTrue(new Intake(m_intakeSubsystem, 20,0.1));
         operatorJoystick.leftBumper().whileTrue(new IntakeWheels(m_intakeWheelsSubsystem, 0.3,true));
         operatorJoystick.rightBumper().whileTrue(new IntakeWheels(m_intakeWheelsSubsystem, 0.3,false));
       //  operatorJoystick.povUp().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionOrignal));

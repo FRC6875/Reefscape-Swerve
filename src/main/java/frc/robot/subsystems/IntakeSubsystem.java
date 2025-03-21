@@ -40,7 +40,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void moveToPosition(double position) {
   double kP = 0.1; // Proportional constant, adjust as needed
-  double tolerance = 0.2; // Allowable error margin
+  double tolerance = 0.02; // Allowable error margin
 
   double error = position - intakeEncoder.getPosition();//diff between current position and target
   double speed = kP * error; // Calculate speed based on error
@@ -50,7 +50,7 @@ public class IntakeSubsystem extends SubsystemBase {
   if (Math.abs(error) > tolerance) {
       intakeMotor.set(speed); // Move the motor
   } else {
-      intakeMotor.stopMotor(); // Stop if within tolerance
+      intakeMotor.set(-0.1); // Stop if within tolerance
   }
 
   System.out.println("Target: " + String.valueOf(position));
