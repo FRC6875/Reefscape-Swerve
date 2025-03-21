@@ -11,6 +11,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.generated.MechanismConstants.IntakeConstants;
 
@@ -53,10 +54,10 @@ public class IntakeSubsystem extends SubsystemBase {
       intakeMotor.stopMotor(); // Stop if within tolerance
   }
 
-  System.out.println("Target: " + String.valueOf(position));
-  System.out.println("Current: " + String.valueOf(intakeEncoder.getPosition()));
-  System.out.println("Error: " + String.valueOf(Math.abs(error)));
-  System.out.println("Tolerance: " + String.valueOf(tolerance));
+  System.out.print("Target: " + String.valueOf(position));
+  System.out.print("Current: " + String.valueOf(intakeEncoder.getPosition()));
+  System.out.print("Error: " + String.valueOf(Math.abs(error)));
+  System.out.print("Tolerance: " + String.valueOf(tolerance));
 }
 
  public void resetEncoder(){
@@ -78,6 +79,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Intake Positions", getEncoderValue());
     // This method will be called once per scheduler run
   }
 }
