@@ -34,7 +34,7 @@ public class IntakeOscillate extends Command {
       m_intakeSubsystem.setSpeed(-m_resistence);
     }
     else if(m_intakeSubsystem.getEncoderValue() < m_posi - 0.05){
-      m_intakeSubsystem.setSpeed(m_resistence);
+      m_intakeSubsystem.setSpeed(m_resistence*0.5);
     }
     
   } 
