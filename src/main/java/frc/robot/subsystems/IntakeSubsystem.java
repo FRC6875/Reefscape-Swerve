@@ -51,8 +51,12 @@ public class IntakeSubsystem extends SubsystemBase {
       intakeMotor.set(speed); // Move the motor
   } else {
       intakeMotor.stopMotor(); // Stop if within tolerance
-
   }
+
+  System.out.println("Target: " + String.valueOf(position));
+  System.out.println("Current: " + String.valueOf(intakeEncoder.getPosition()));
+  System.out.println("Error: " + String.valueOf(Math.abs(error)));
+  System.out.println("Tolerance: " + String.valueOf(tolerance));
 }
 
  public void resetEncoder(){
