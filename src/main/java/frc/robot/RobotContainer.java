@@ -26,6 +26,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AutoElevatorCommand;
 import frc.robot.commands.Climb;
 import frc.robot.commands.Intake;
+import frc.robot.commands.IntakeOscillate;
 import frc.robot.commands.PositionTeleopElevator;
 import frc.robot.commands.Seq_ElevatorAuto;
 import frc.robot.commands.TeleopElevator;
@@ -93,6 +94,7 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
     public final static LaserSubsystem m_laserSubsystem=new LaserSubsystem();
     public final static IntakeSubsystem m_intakeSubsystem=new IntakeSubsystem();
     public final static IntakeWheelsSubsystem m_intakeWheelsSubsystem=new IntakeWheelsSubsystem();
+
     public RobotContainer() {
         configureBindings();
 
@@ -142,6 +144,8 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
         operatorJoystick.povRight().onTrue(new Intake(m_intakeSubsystem, 20,0.1));
         operatorJoystick.leftBumper().whileTrue(new IntakeWheels(m_intakeWheelsSubsystem, 0.3,true));
         operatorJoystick.rightBumper().whileTrue(new IntakeWheels(m_intakeWheelsSubsystem, 0.3,false));
+        
+        operatorJoystick.povCenter().whileTrue(new IntakeOscillate(m_intakeSubsystem, 0.1));
       //  operatorJoystick.povUp().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionOrignal));
       //  operatorJoystick.povRight().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionRelease));
     }
