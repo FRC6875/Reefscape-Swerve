@@ -6,22 +6,18 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.IntakeWheelsSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class Intake extends ParallelCommandGroup {
-  /** Creates a new IntakeWheels. */
-  IntakeWheelsSubsystem m_intakeWheelsSubsystem;
-  double speed;
+public class RunAuto extends ParallelCommandGroup {
+  
 
-  public Intake(ElevatorSubsystem elevatorSubsystem, IntakeSubsystem intakeSubsystem, IntakeWheelsSubsystem intakeWheelsSubsystem, DoubleSupplier elevatorPosition, DoubleSupplier holderPosition) {
+  public RunAuto(IntakeSubsystem intakeSubsystem, DoubleSupplier holderPosition, Command auto) {
     addCommands(
-      new PositionTeleopElevator(elevatorSubsystem, elevatorPosition),
       new PositionIntake(intakeSubsystem, holderPosition),
-      new IntakeWheels(intakeWheelsSubsystem, 0.4)
+      auto
     );
   }
 }

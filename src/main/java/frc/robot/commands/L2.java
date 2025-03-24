@@ -12,12 +12,12 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.IntakeWheelsSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class Intake extends ParallelCommandGroup {
+public class L2 extends ParallelCommandGroup {
   /** Creates a new IntakeWheels. */
   IntakeWheelsSubsystem m_intakeWheelsSubsystem;
   double speed;
 
-  public Intake(ElevatorSubsystem elevatorSubsystem, IntakeSubsystem intakeSubsystem, IntakeWheelsSubsystem intakeWheelsSubsystem, DoubleSupplier elevatorPosition, DoubleSupplier holderPosition) {
+  public L2(ElevatorSubsystem elevatorSubsystem, IntakeSubsystem intakeSubsystem, IntakeWheelsSubsystem intakeWheelsSubsystem, DoubleSupplier elevatorPosition, DoubleSupplier holderPosition) {
     addCommands(
       new PositionTeleopElevator(elevatorSubsystem, elevatorPosition),
       new PositionIntake(intakeSubsystem, holderPosition),
