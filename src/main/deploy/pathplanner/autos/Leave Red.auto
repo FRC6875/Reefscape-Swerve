@@ -7,13 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Leave"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoElevatorL4"
+            "pathName": "Leave Red"
           }
         }
       ]

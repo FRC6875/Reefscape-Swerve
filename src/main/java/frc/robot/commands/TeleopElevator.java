@@ -31,12 +31,12 @@ public class TeleopElevator extends Command {
   @Override
   public void initialize() {
   //reset encoders
-  }
+  }  
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    speed=(up.getAsDouble()-down.getAsDouble())*0.3;
+    speed=(up.getAsDouble()-down.getAsDouble());
 
     m_elevatorSubsystem.setSpeed(speed);
     //run motor in specified direction

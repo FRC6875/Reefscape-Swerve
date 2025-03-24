@@ -4,43 +4,47 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.IntakeWheelsSubsystem;
-
+import frc.robot.subsystems.IntakeSubsystem;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class IntakeWheels extends Command {
-  /** Creates a new IntakeWheels. */
-  IntakeWheelsSubsystem m_intakeWheelsSubsystem;
-  double speed;
+public class PositionIntake extends Command {
+  /** Creates a new Intake. */
+  IntakeSubsystem m_intakeSubsystem;
+  DoubleSupplier m_position;
 
-  public IntakeWheels(IntakeWheelsSubsystem intakeWheelsSubsystem, double speed) {
+  public PositionIntake(IntakeSubsystem intakeSubsystem, DoubleSupplier position) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_intakeWheelsSubsystem = intakeWheelsSubsystem;
-    this.speed = speed;
-    addRequirements(RobotContainer.m_intakeWheelsSubsystem);
+    m_intakeSubsystem = intakeSubsystem;
+    m_position = position;
+    addRequirements(RobotContainer.m_intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intakeWheelsSubsystem.setSpeed(speed);
-
+    m_intakeSubsystem.moveToPosition(m_position.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intakeWheelsSubsystem.stop();
+    m_intakeSubsystem.setSpeed(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // if (Math.abs(m_intakeSubsystem.getEncoderValue()-m_posi)<=0.2) return true;
+    // else return false;
     return false;
   }
 }

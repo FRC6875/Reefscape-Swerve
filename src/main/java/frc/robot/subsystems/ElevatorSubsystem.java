@@ -62,12 +62,7 @@ public void moveToPosition(double position) {
 }
   speed = Math.max(-0.3, Math.min(0.3, speed)); // Clamp speed between -0.5 and 0.5
 
-  if (Math.abs(error) > tolerance) {
-      elevatorMotor.set(speed); // Move the motor
-  } else {
-      elevatorMotor.stopMotor(); // Stop if within tolerance
-
-  }
+  elevatorMotor.set(speed);
 }
 //zhi
 

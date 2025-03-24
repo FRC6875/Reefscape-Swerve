@@ -11,6 +11,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.generated.MechanismConstants.IntakeConstants;
@@ -21,7 +22,6 @@ public class IntakeSubsystem extends SubsystemBase {
   SparkMaxConfig config = new SparkMaxConfig();
   RelativeEncoder intakeEncoder = intakeMotor.getEncoder();
   SparkClosedLoopController intakeController = intakeMotor.getClosedLoopController();
-
   public IntakeSubsystem() {
    
     config
@@ -40,24 +40,14 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void moveToPosition(double position) {
-  double kP = 0.1; // Proportional constant, adjust as needed
-  double tolerance = 0.02; // Allowable error margin
+  double kP = 0.4; // Proportional constant, adjust as needed
 
-  double error = position - intakeEncoder.getPosition();//diff between current position and target
+  double error = position - intakeEncoder.getPosition(); //diff between current position and target
   double speed = kP * error; // Calculate speed based on error
 
-  speed = Math.max(-0.3, Math.min(0.3, speed)); // Clamp speed between -0.5 and 0.5
-
-  if (Math.abs(error) > tolerance) {
-      intakeMotor.set(speed); // Move the motor
-  } else {
-      intakeMotor.set(-0.1); // Stop if within tolerance
-  }
-
-  System.out.print("Target: " + String.valueOf(position));
-  System.out.print("Current: " + String.valueOf(intakeEncoder.getPosition()));
-  System.out.print("Error: " + String.valueOf(Math.abs(error)));
-  System.out.print("Tolerance: " + String.valueOf(tolerance));
+  speed = Math.max(-0.15, Math.min(0.05, speed)); // Clamp speed. NOTE: NEGATIVE IS UP AND POSITIVE IS DOWN!!!
+  
+  intakeMotor.set(speed); // Move the motor
 }
 
  public void resetEncoder(){
@@ -81,5 +71,7 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Intake Positions", getEncoderValue());
     // This method will be called once per scheduler run
+
+
   }
 }
