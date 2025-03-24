@@ -27,7 +27,6 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AutoElevatorCommand;
 import frc.robot.commands.Climb;
 import frc.robot.commands.Intake;
-import frc.robot.commands.PositionIntake;
 import frc.robot.commands.PositionTeleopElevator;
 import frc.robot.commands.ResetIntake;
 import frc.robot.commands.RunAuto;
@@ -98,6 +97,7 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
     public final static LaserSubsystem m_laserSubsystem=new LaserSubsystem();
     public final static IntakeSubsystem m_intakeSubsystem=new IntakeSubsystem();
     public final static IntakeWheelsSubsystem m_intakeWheelsSubsystem=new IntakeWheelsSubsystem();
+
     public RobotContainer() {
         configureBindings();
 
@@ -120,54 +120,35 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
     
 
     private void configureBindings() {
-        
+        // Note that X is defined as forward according to WPILib convention,
+        // and Y is defined as to the left according to WPILib convention.
 
-        DoubleSupplier elevatorDownPos = () -> 0;
-        DoubleSupplier elevatorIntakePos = () -> SmartDashboard.getNumber("Elevator Intake Pos",17);
-        DoubleSupplier elevatorL2Pos = () -> SmartDashboard.getNumber("Elevator L2 Pos",20);
-        DoubleSupplier elevatorL3Pos = () -> SmartDashboard.getNumber("Elevator L3 Pos",0);
-        DoubleSupplier elevatorL4Pos = () -> SmartDashboard.getNumber("Elevator L4 Pos",0);
-        DoubleSupplier holderUpPos = () -> SmartDashboard.getNumber("Holder Up Pos",0.3);
-        DoubleSupplier holderIntakePos = () -> SmartDashboard.getNumber("Holder Intake Pos",1.2);
-        DoubleSupplier holderEjectPos = () -> SmartDashboard.getNumber("Holder Down Pos",2.2);
-
-        SmartDashboard.putNumber("Elevator Intake Pos", elevatorIntakePos.getAsDouble());
-        SmartDashboard.putNumber("Elevator L2 Pos", elevatorL2Pos.getAsDouble());
-        SmartDashboard.putNumber("Elevator L3 Pos", elevatorL3Pos.getAsDouble());
-        SmartDashboard.putNumber("Elevator L4 Pos", elevatorL4Pos.getAsDouble());
-        SmartDashboard.putNumber("Holder Up Pos", holderUpPos.getAsDouble());
-        SmartDashboard.putNumber("Holder Intake Pos", holderIntakePos.getAsDouble());
-        SmartDashboard.putNumber("Holder Down Pos", holderEjectPos.getAsDouble());
+       // operatorJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "up"));
+       // operatorJoystick.a().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "up"));
+       // operatorJoystick.b().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "up"));
 
 
-        // m_elevatorSubsystem.setDefaultCommand(new TeleopElevator(m_elevatorSubsystem, () -> operatorJoystick.getRightTriggerAxis(), ()->operatorJoystick.getLeftTriggerAxis()));
-        operatorJoystick.leftTrigger().whileTrue(new Intake(
-            m_elevatorSubsystem,
-            m_intakeSubsystem,
-            m_intakeWheelsSubsystem,
-            elevatorIntakePos,
-            holderIntakePos
-        ));
-        operatorJoystick.leftTrigger().onFalse(new PositionIntake(m_intakeSubsystem, holderIntakePos));
-        operatorJoystick.leftTrigger().onFalse(new PositionTeleopElevator(m_elevatorSubsystem, elevatorDownPos));
+        // Run SysId routines when holding back/start and X/Y.
+        // Note that each routine should be run exactly once in a single log.
+       // operatorJoystick.a().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, -16.0, "up"));
+       // operatorJoystick.x().onTrue(new AutoElevatorCommand(m_elevatorSubsystem, 16.0, "down"));
+       // operatorJoystick.rightBumper().whileTrue(new Climb(m_climbSubsystem, true,0.3));
+        driverJoystick.leftBumper().whileTrue(new Climb(m_climbSubsystem, false,0.3));
+        //driverJoystick.y().toggleOnTrue(driveRobotOrientatedAngularVelocity);
+       // driverJoystick.b().toggleOnTrue(driveFieldOrientatedDirectAngularVelocity);
 
-        operatorJoystick.rightTrigger().whileTrue(new L2(
-            m_elevatorSubsystem,
-            m_intakeSubsystem,
-            m_intakeWheelsSubsystem,
-            elevatorL2Pos,
-            holderEjectPos
-        ));
-        operatorJoystick.rightTrigger().onFalse(new PositionIntake(m_intakeSubsystem, holderEjectPos));
-        operatorJoystick.rightTrigger().onFalse(new IntakeWheels(m_intakeWheelsSubsystem, -0.4));
-        
-        operatorJoystick.y().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, elevatorDownPos));
-        operatorJoystick.povUp().onTrue(new PositionIntake(m_intakeSubsystem, holderUpPos));
-        operatorJoystick.povLeft().onTrue(new PositionIntake(m_intakeSubsystem, holderIntakePos));
-        operatorJoystick.povDown().onTrue(new PositionIntake(m_intakeSubsystem, holderEjectPos));
-        operatorJoystick.povRight().onTrue(new ResetIntake(m_intakeSubsystem));
-        operatorJoystick.rightBumper().whileTrue(new IntakeWheels(m_intakeWheelsSubsystem, -0.4));
-        operatorJoystick.leftBumper().whileTrue(new IntakeWheels(m_intakeWheelsSubsystem, 0.3));
+
+        m_elevatorSubsystem.setDefaultCommand(new TeleopElevator(m_elevatorSubsystem, () -> operatorJoystick.getRightTriggerAxis(), ()->operatorJoystick.getLeftTriggerAxis()));
+        operatorJoystick.a().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, m_laserSubsystem,1, 0));
+        operatorJoystick.b().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,  m_laserSubsystem,-15, 16));
+        operatorJoystick.y().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,  m_laserSubsystem,-1, 1));
+        operatorJoystick.x().onTrue(new PositionTeleopElevator(m_elevatorSubsystem,  m_laserSubsystem,-5, 2));
+        operatorJoystick.povUp().onTrue(new Intake(m_intakeSubsystem, 0,0));
+        operatorJoystick.povDown().onTrue(new Intake(m_intakeSubsystem, 0.5,0.1));
+        operatorJoystick.povLeft().onTrue(new Intake(m_intakeSubsystem, 1,0.1));
+        operatorJoystick.povRight().onTrue(new Intake(m_intakeSubsystem, 20,0.1));
+        operatorJoystick.leftBumper().whileTrue(new IntakeWheels(m_intakeWheelsSubsystem, 0.3,true));
+        operatorJoystick.rightBumper().whileTrue(new IntakeWheels(m_intakeWheelsSubsystem, 0.3,false));
       //  operatorJoystick.povUp().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionOrignal));
       //  operatorJoystick.povRight().onTrue(new ServoArm(m_servoSubsystem,ServoConstants.kServoPositionRelease));
     }
