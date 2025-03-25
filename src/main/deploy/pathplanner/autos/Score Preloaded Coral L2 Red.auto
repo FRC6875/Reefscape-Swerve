@@ -7,13 +7,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Right Cage Going To B"
+            "pathName": "Line up to Reef Red "
           }
         },
         {
           "type": "named",
           "data": {
             "name": "AutoElevatorL2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoIntakeDown"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoWheelsOut"
           }
         }
       ]

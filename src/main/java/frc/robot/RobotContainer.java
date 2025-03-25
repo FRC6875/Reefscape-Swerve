@@ -42,6 +42,8 @@ import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveInputStream;
 import frc.robot.commands.IntakeWheels;
 import frc.robot.commands.L2;
+import frc.robot.commands.L3;
+import frc.robot.commands.L4;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 
@@ -109,6 +111,9 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
        //  m_chooser.addOption( "Testing Simple", new PathPlannerAuto("testing simple"));
         m_chooser.addOption( "Leave Blue", new PathPlannerAuto("Leave Blue"));
         m_chooser.addOption( "Leave Red", new PathPlannerAuto("Leave Red"));
+        m_chooser.addOption( "Score Preloaded Coral L2 Red", new PathPlannerAuto("Score Preloaded Coral L2 Red"));
+        m_chooser.addOption( "Score Preloaded Coral L2 Blue", new PathPlannerAuto("Score Preloaded Coral L2 Blue"));
+
 
        //  m_chooser.addOption( "Left Corner To I L2", new PathPlannerAuto("Left Corner To I L2"));
 
@@ -152,16 +157,36 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
         operatorJoystick.leftTrigger().onFalse(new PositionIntake(m_intakeSubsystem, holderIntakePos));
         operatorJoystick.leftTrigger().onFalse(new PositionTeleopElevator(m_elevatorSubsystem, elevatorDownPos));
 
-        operatorJoystick.rightTrigger().whileTrue(new L2(
+        operatorJoystick.y().whileTrue(new L2(
             m_elevatorSubsystem,
             m_intakeSubsystem,
             m_intakeWheelsSubsystem,
             elevatorL2Pos,
             holderEjectPos
         ));
-        operatorJoystick.rightTrigger().onFalse(new PositionIntake(m_intakeSubsystem, holderEjectPos));
-        operatorJoystick.rightTrigger().onFalse(new IntakeWheels(m_intakeWheelsSubsystem, -0.4));
+        operatorJoystick.y().onFalse(new PositionIntake(m_intakeSubsystem, holderEjectPos));
+        operatorJoystick.y().onFalse(new IntakeWheels(m_intakeWheelsSubsystem, -0.4));
+
+        operatorJoystick.b().whileTrue(new L3(
+            m_elevatorSubsystem,
+            m_intakeSubsystem,
+            m_intakeWheelsSubsystem,
+            elevatorL3Pos,
+            holderEjectPos
+        ));
+        operatorJoystick.b().onFalse(new PositionIntake(m_intakeSubsystem, holderIntakePos));
+        operatorJoystick.b().onFalse(new PositionTeleopElevator(m_elevatorSubsystem, elevatorDownPos));
         
+        operatorJoystick.a().whileTrue(new L4(
+            m_elevatorSubsystem,
+            m_intakeSubsystem,
+            m_intakeWheelsSubsystem,
+            elevatorL3Pos,
+            holderEjectPos
+        ));
+        operatorJoystick.a().onFalse(new PositionIntake(m_intakeSubsystem, holderIntakePos));
+        operatorJoystick.a().onFalse(new PositionTeleopElevator(m_elevatorSubsystem, elevatorDownPos));
+
         operatorJoystick.y().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, elevatorDownPos));
         operatorJoystick.povUp().onTrue(new PositionIntake(m_intakeSubsystem, holderUpPos));
         operatorJoystick.povLeft().onTrue(new PositionIntake(m_intakeSubsystem, holderIntakePos));

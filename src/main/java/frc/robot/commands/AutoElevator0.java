@@ -8,15 +8,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ElevatorSubsystem;
 
+
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AutoElevatorL2 extends Command {
+public class AutoElevator0 extends Command {
   ElevatorSubsystem m_elevatorSubsystem;
   double m_dist;
   String m_direction;
   /** Creates a new AutoElevatorTrough. */
-  public AutoElevatorL2(ElevatorSubsystem elevatorSubsystem) {
+  public AutoElevator0(ElevatorSubsystem elevatorSubsystem) {
     m_elevatorSubsystem = elevatorSubsystem;
-    m_dist = -20;
+    m_dist = 0;
     //m_direction = direction;
     addRequirements(RobotContainer.m_elevatorSubsystem);
   }
@@ -47,6 +48,7 @@ public class AutoElevatorL2 extends Command {
     //if the encoder value reaches the target,stop
     if (Math.abs(m_elevatorSubsystem.getEncoderValue()-m_dist)<=0.3) return true;
     //else if the laser value reaches the target,stop
+    else if(m_laserSubsystem.getValue()>=m_laserDist)return true;
 
     else
     return false;

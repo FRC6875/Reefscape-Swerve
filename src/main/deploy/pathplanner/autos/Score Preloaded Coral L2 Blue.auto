@@ -7,13 +7,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left Corner Going To I"
+            "pathName": "Line up to Reef Blue"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AutoElevatorL1"
+            "name": "AutoElevatorL2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoIntakeDown"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoWheelsOut"
           }
         }
       ]
