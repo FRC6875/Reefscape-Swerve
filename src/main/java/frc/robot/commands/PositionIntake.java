@@ -43,8 +43,8 @@ public class PositionIntake extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // if (Math.abs(m_intakeSubsystem.getEncoderValue()-m_posi)<=0.2) return true;
-    // else return false;
-    return false;
+     if (Math.abs(m_intakeSubsystem.getEncoderValue()-m_position.getAsDouble())<=0.2) return true;
+     else return false;
+    //return false;
   }
 }

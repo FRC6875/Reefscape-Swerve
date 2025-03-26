@@ -27,6 +27,18 @@
           "data": {
             "name": "AutoWheelsOut"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoElevator0"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoIntakeUp"
+          }
         }
       ]
     }

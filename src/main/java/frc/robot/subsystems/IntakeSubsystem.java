@@ -30,9 +30,9 @@ public class IntakeSubsystem extends SubsystemBase {
     config.encoder
     .positionConversionFactor(IntakeConstants.kIntakeEncoderConvFact);
     config.closedLoop
-    .p(1)
+    .p(5)
     .i(0)
-    .d(0)
+    .d(0.35)
     .outputRange(-0.3, 0.3);
 
     resetEncoder();
@@ -45,7 +45,7 @@ public class IntakeSubsystem extends SubsystemBase {
   double error = position - intakeEncoder.getPosition(); //diff between current position and target
   double speed = kP * error; // Calculate speed based on error
 
-  speed = Math.max(-0.15, Math.min(0.05, speed)); // Clamp speed. NOTE: NEGATIVE IS UP AND POSITIVE IS DOWN!!!
+  speed = Math.max(-0.2, Math.min(0.2, speed)); // Clamp speed. NOTE: NEGATIVE IS UP AND POSITIVE IS DOWN!!!
   
   intakeMotor.set(speed); // Move the motor
 }

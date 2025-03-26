@@ -130,12 +130,12 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
 
         DoubleSupplier elevatorDownPos = () -> 0;
         DoubleSupplier elevatorIntakePos = () -> SmartDashboard.getNumber("Elevator Intake Pos",17);
-        DoubleSupplier elevatorL2Pos = () -> SmartDashboard.getNumber("Elevator L2 Pos",20);
-        DoubleSupplier elevatorL3Pos = () -> SmartDashboard.getNumber("Elevator L3 Pos",0);
-        DoubleSupplier elevatorL4Pos = () -> SmartDashboard.getNumber("Elevator L4 Pos",0);
+        DoubleSupplier elevatorL2Pos = () -> SmartDashboard.getNumber("Elevator L2 Pos",25);
+        DoubleSupplier elevatorL3Pos = () -> SmartDashboard.getNumber("Elevator L3 Pos",35);
+        DoubleSupplier elevatorL4Pos = () -> SmartDashboard.getNumber("Elevator L4 Pos",40);
         DoubleSupplier holderUpPos = () -> SmartDashboard.getNumber("Holder Up Pos",0.3);
-        DoubleSupplier holderIntakePos = () -> SmartDashboard.getNumber("Holder Intake Pos",1.2);
-        DoubleSupplier holderEjectPos = () -> SmartDashboard.getNumber("Holder Down Pos",2.2);
+        DoubleSupplier holderIntakePos = () -> SmartDashboard.getNumber("Holder Intake Pos",15.4);
+        DoubleSupplier holderEjectPos = () -> SmartDashboard.getNumber("Holder Down Pos",30);
 
         SmartDashboard.putNumber("Elevator Intake Pos", elevatorIntakePos.getAsDouble());
         SmartDashboard.putNumber("Elevator L2 Pos", elevatorL2Pos.getAsDouble());
@@ -164,8 +164,9 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
             elevatorL2Pos,
             holderEjectPos
         ));
-        operatorJoystick.y().onFalse(new PositionIntake(m_intakeSubsystem, holderEjectPos));
-        operatorJoystick.y().onFalse(new IntakeWheels(m_intakeWheelsSubsystem, -0.4));
+        operatorJoystick.y().onFalse(new PositionIntake(m_intakeSubsystem, holderIntakePos));
+       // operatorJoystick.y().onFalse(new IntakeWheels(m_intakeWheelsSubsystem, -0.2));
+        operatorJoystick.y().onFalse(new PositionTeleopElevator(m_elevatorSubsystem, elevatorDownPos));
 
         operatorJoystick.b().whileTrue(new L3(
             m_elevatorSubsystem,
@@ -187,7 +188,7 @@ Command driveFieldOrientatedDirectAngularVelocity = drivebase.driveFieldOrientat
         operatorJoystick.a().onFalse(new PositionIntake(m_intakeSubsystem, holderIntakePos));
         operatorJoystick.a().onFalse(new PositionTeleopElevator(m_elevatorSubsystem, elevatorDownPos));
 
-        operatorJoystick.y().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, elevatorDownPos));
+       operatorJoystick.rightTrigger().onTrue(new PositionTeleopElevator(m_elevatorSubsystem, elevatorDownPos));
         operatorJoystick.povUp().onTrue(new PositionIntake(m_intakeSubsystem, holderUpPos));
         operatorJoystick.povLeft().onTrue(new PositionIntake(m_intakeSubsystem, holderIntakePos));
         operatorJoystick.povDown().onTrue(new PositionIntake(m_intakeSubsystem, holderEjectPos));

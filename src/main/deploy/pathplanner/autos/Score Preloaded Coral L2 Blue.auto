@@ -27,6 +27,12 @@
           "data": {
             "name": "AutoWheelsOut"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoElevator0"
+          }
         }
       ]
     }

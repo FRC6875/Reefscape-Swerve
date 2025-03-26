@@ -21,7 +21,7 @@ public class L4 extends ParallelCommandGroup {
     addCommands(
       new PositionTeleopElevator(elevatorSubsystem, elevatorPosition),
       new PositionIntake(intakeSubsystem, holderPosition),
-      new IntakeWheels(intakeWheelsSubsystem, 0.4)
+      new IntakeWheels(intakeWheelsSubsystem, 0.2)
     );
   }
 }

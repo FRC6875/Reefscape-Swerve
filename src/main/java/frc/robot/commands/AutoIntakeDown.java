@@ -19,7 +19,7 @@ public class AutoIntakeDown extends Command {
   public AutoIntakeDown(IntakeSubsystem intakeSubsystem, double posi) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_intakeSubsystem = intakeSubsystem;
-    m_posi = 2.2;
+    m_posi = 30 ;
     addRequirements(RobotContainer.m_intakeSubsystem);
   }
 
