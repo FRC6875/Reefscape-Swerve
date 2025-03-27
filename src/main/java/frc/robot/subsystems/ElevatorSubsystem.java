@@ -53,7 +53,7 @@ public void moveToPosition(double position) {
   //the value is smaller for going down so it's moving slower
   double tolerance = 0.3; // Allowable error margin
   double speed;
-  double error = position - elevatorEncoder.getPosition();//diff between current position and target
+  double error = Math.round(position/ElevatorConstants.kElevatorEncoderConvFact)- elevatorEncoder.getPosition();//diff between current position and target
   if(error>0){
      speed = kPd * error; // Calculate speed based on error
   }
